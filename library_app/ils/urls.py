@@ -7,6 +7,7 @@ urlpatterns = [
     # Author
     path('author/', views.AuthorListView.as_view(), name='author_list'),
     path('author/<int:pk>/', views.AuthorDetailView.as_view(), name='author_detail'),
+    path('author/create/', views.AuthorCreateView.as_view(), name='author_create'),
     
     # Book
     path('book/', views.BookListView.as_view(), name='book_list'),

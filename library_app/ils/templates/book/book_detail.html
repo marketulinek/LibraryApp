@@ -1,0 +1,10 @@
+<h2> {{ object.name }} </h2>
+<h2> by {{ object.author.first_name }} {{ object.author.last_name }}</h2>
+
+
+<h4> Publisher: {{object.publisher.name}} </h4>
+<h4> Publication Year: {{object.year}} </h4>
+<h4> Description: </h4>
+<p> {{object.description}} </p>
+
+<a href='{% url "book_list" %}'> back to list of books </a>

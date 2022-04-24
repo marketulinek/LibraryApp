@@ -34,5 +34,5 @@ class BookFormView(CreateView):
     fields = ["name", "author", "publisher", "year", "description"]
     success_url = reverse_lazy('book_form_confirmation')
 
-class BookFormConfirmation(TemplateView):
+class BookFormConfirmationView(TemplateView):
     template_name = 'book/book_form_confirmation.html'

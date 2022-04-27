@@ -1,10 +1,14 @@
-<h2>List of Available Books </h2>
+{% extends 'base.html' %}
 
-<ol>
-{% for item in object_list %}
-    <li> <a href='{% url "book_detail" item.pk %}'> {{ item.name}}</a>
-        by {{ item.author.first_name}} {{ item.author.last_name}}
-        ( {{item.publisher.name}} in {{item.year}} )
-    </li>
-{% endfor %}
-</ol>
+{% block content %}
+    <h2>List of Available Books </h2>
+
+    <ol>
+    {% for item in object_list %}
+        <li> <a href='{% url "book_detail" item.pk %}'> {{ item.name}}</a>
+            by {{ item.author.first_name}} {{ item.author.last_name}}
+            ( {{item.publisher.name}} in {{item.year}} )
+        </li>
+    {% endfor %}
+    </ol>
+{% endblock %}

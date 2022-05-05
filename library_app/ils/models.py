@@ -1,4 +1,3 @@
-from asyncio.windows_events import NULL
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -47,7 +46,7 @@ class BookReservation(models.Model):
         if self.termination_type:
             termination_info = " / " + self.termination_type.upper()
 
-        return f"[{self.created_at}] {self.book.name} (reader: {self.reader.username}){termination_info}"
+        return f"[{self.created_at.strftime('%d %b %y,  %a %H:%M:%S')}] {self.book.name} (reader: {self.reader.username}){termination_info}"
 
     class Meta:
         get_latest_by = "created_at"

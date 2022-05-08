@@ -1,4 +1,20 @@
 from django.db import models
+from django.contrib.auth.models import User
+from datetime import timedelta
+from time import timezone
+
+class Reader(models.Model):
+    one_year_from_today = timezone.now() + timedelta(days=365)
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    card_number = models.CharField(max_length=9, unique=True) # Random generating?
+    registration_date = models.DateField(auto_now_add=True) # After registration?
+    membership_end_date = models.DateField(default=one_year_from_today)
+
+class Librarian(models.Model):
+    reader = models.OneToOneField(Reader, on_delete=models.CASCADE)
+    start_date = models.DateField()
+    end_date = models.DateField()
 
 class Author(models.Model):
     first_name = models.CharField(max_length=50)

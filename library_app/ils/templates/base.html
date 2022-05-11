@@ -34,7 +34,11 @@
                     <a class="nav-link" href="#">My Account</a>
                   </li>
                 </ul>
-                <a class="nav-link" href="#">Log In or Register</a>
+                 {% if user.is_authenticated %}
+                    <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+                 {% else %}
+                    <a class="nav-link" href="{% url 'login' %}">Log In or Register</a>
+                 {% endif %}
                 <form class="d-flex">
                     <input class="form-control me-2" type="search" placeholder="Search a book or author" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">
@@ -49,7 +53,7 @@
 
         {% block content %}
         {% endblock %}
-
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     </body>
 </html>
+

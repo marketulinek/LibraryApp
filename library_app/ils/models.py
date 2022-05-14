@@ -48,3 +48,20 @@ class Book(models.Model):
 
 # TODO: Tag
 # TODO: Rating
+
+@receiver(post_save, sender=User)
+def create_reader(sender, instance, created, **kwargs):
+
+    if created:
+
+        # Generating unique nine-digit number
+        card_number_exist = True
+        while card_number_exist:
+
+            new_card_number = ''
+            for i in range(8):
+                new_card_number += str(randrange(10))
+
+            card_number_exist = Reader.objects.get(library_card_number=new_card_number)
+        else:
+            Reader.objects.create(user=instance,library_card_number=new_card_number)

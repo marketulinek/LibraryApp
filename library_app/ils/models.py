@@ -2,12 +2,11 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from datetime import timedelta
-from time import timezone
+from django.utils import timezone
 from random import randrange
 
 class Reader(models.Model):
-    one_year_from_today = timezone.now() + timedelta(days=364)
+    one_year_from_today = timezone.now() + timezone.timedelta(days=364)
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     library_card_number = models.CharField(max_length=9, unique=True)
@@ -16,7 +15,7 @@ class Reader(models.Model):
 
     @property
     def is_active_member(self):
-        return self.membership_end_date >= timezone.now() or self.membership_end_date is None
+        return self.membership_end_date >= timezone.now().date() or self.membership_end_date is None
 
 class Librarian(models.Model):
     reader = models.OneToOneField(Reader, on_delete=models.CASCADE)
@@ -53,15 +52,14 @@ class Book(models.Model):
 def create_reader(sender, instance, created, **kwargs):
 
     if created:
-
         # Generating unique nine-digit number
         card_number_exist = True
         while card_number_exist:
 
             new_card_number = ''
-            for i in range(8):
+            for i in range(9):
                 new_card_number += str(randrange(10))
 
-            card_number_exist = Reader.objects.get(library_card_number=new_card_number)
+            card_number_exist = Reader.objects.filter(library_card_number=new_card_number).exists()
         else:
             Reader.objects.create(user=instance,library_card_number=new_card_number)

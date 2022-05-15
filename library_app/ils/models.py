@@ -6,12 +6,14 @@ from django.utils import timezone
 from random import randrange
 
 class Reader(models.Model):
-    one_year_from_today = timezone.now() + timezone.timedelta(days=364)
+
+    def get_one_year_from_today():
+        return timezone.now() + timezone.timedelta(days=364)
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     library_card_number = models.CharField(max_length=9, unique=True)
     registration_date = models.DateField(auto_now_add=True)
-    membership_end_date = models.DateField(default=one_year_from_today)
+    membership_end_date = models.DateField(default=get_one_year_from_today)
 
     @property
     def is_active_member(self):

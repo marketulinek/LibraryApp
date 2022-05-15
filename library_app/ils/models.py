@@ -34,19 +34,14 @@ class BookReservation(models.Model):
         (FORFEITED, 'Reservation forfeited')
     )
 
-    reader = models.ForeignKey(User, on_delete=models.RESTRICT)
+    reader = models.ForeignKey(User, on_delete=models.RESTRICT) # Later switch to Reader
     book = models.ForeignKey(Book, on_delete=models.RESTRICT)
     created_at = models.DateTimeField(auto_now_add=True)
     book_available_at = models.DateTimeField(null=True, blank=True)
     termination_type = models.CharField(max_length=10, choices=TERMINATION_CHOICES, null=True, blank=True)
 
     def __str__(self):
-
-        termination_info = ''
-        if self.termination_type:
-            termination_info = " / " + self.termination_type.upper()
-
-        return f"[{self.created_at.strftime('%d %b %y,  %a %H:%M:%S')}] {self.book.name} (reader: {self.reader.username}){termination_info}"
+        return f"[#{self.id}] {self.book.name} (reader: {self.reader.username})"
 
     class Meta:
         get_latest_by = "created_at"

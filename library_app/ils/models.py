@@ -1,5 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
+from django.core.mail import send_mail
+
 
 class Author(models.Model):
     first_name = models.CharField(max_length=50)
@@ -48,3 +52,28 @@ class BookReservation(models.Model):
 
 # TODO: Tag
 # TODO: Rating
+
+
+# ------------------------------
+#            SIGNALS
+# ------------------------------
+
+@receiver(pre_save, sender=BookReservation)
+def notify_reader_book_is_available(sender, instance, **kwargs):
+
+    if instance.id is not None:
+        pre_instance = BookReservation.objects.get(id=instance.id)
+
+        # If reserved book is available
+        if pre_instance.book_available_at is None and instance.book_available_at is not None:
+
+            book = Book.objects.get(id=instance.book)
+            reader = User.objects.get(id=instance.reader)
+            # reader = Reader.objects.get(id=instance.reader)
+            # reader.user.email
+
+            subject = 'Your reserved book is available!'
+            message = f'Dear reader, the book {book.name} is now available at your library. Come visit us and pick it up :-)'
+            from_email = 'library.bot@yourlibrary.cz'
+            recipient_list = [reader.email]
+            send_mail(subject, message, from_email, recipient_list)

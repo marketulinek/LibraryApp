@@ -16,13 +16,17 @@ class Reader(models.Model):
     membership_end_date = models.DateField(default=get_one_year_from_today)
 
     @property
-    def is_active_member(self):
+    def is_active(self):
         return self.membership_end_date >= timezone.now().date() or self.membership_end_date is None
 
 class Librarian(models.Model):
     reader = models.OneToOneField(Reader, on_delete=models.CASCADE)
     start_date = models.DateField()
     end_date = models.DateField(null=True, blank=True)
+
+    @property
+    def is_active(self):
+        return self.end_date >= timezone.now().date() or self.end_date is None
 
 class Author(models.Model):
     first_name = models.CharField(max_length=50)

@@ -63,7 +63,7 @@ class BookReservation(models.Model):
         (FORFEITED, 'Reservation forfeited')
     )
 
-    reader = models.ForeignKey(User, on_delete=models.RESTRICT) # Later switch to Reader
+    reader = models.ForeignKey(Reader, on_delete=models.RESTRICT)
     book = models.ForeignKey(Book, on_delete=models.RESTRICT)
     created_at = models.DateTimeField(auto_now_add=True)
     book_available_at = models.DateTimeField(null=True, blank=True)
@@ -109,12 +109,10 @@ def notify_reader_book_is_available(sender, instance, **kwargs):
         if pre_instance.book_available_at is None and instance.book_available_at is not None:
 
             book = Book.objects.get(id=instance.book)
-            reader = User.objects.get(id=instance.reader)
-            # reader = Reader.objects.get(id=instance.reader)
-            # reader.user.email
+            reader = Reader.objects.get(id=instance.reader)
 
             subject = 'Your reserved book is available!'
             message = f'Dear reader, the book {book.name} is now available at your library. Come visit us and pick it up :-)'
             from_email = 'library.bot@yourlibrary.cz'
-            recipient_list = [reader.email]
+            recipient_list = [reader.user.email]
             send_mail(subject, message, from_email, recipient_list)

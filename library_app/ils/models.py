@@ -1,9 +1,34 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.signals import pre_save
+from django.db.models.signals import post_save,pre_save
 from django.dispatch import receiver
 from django.core.mail import send_mail
+from django.utils import timezone
+from random import randrange
 
+
+class Reader(models.Model):
+
+    def get_one_year_from_today():
+        return timezone.now() + timezone.timedelta(days=364)
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    library_card_number = models.CharField(max_length=9, unique=True)
+    registration_date = models.DateField(auto_now_add=True)
+    membership_end_date = models.DateField(default=get_one_year_from_today)
+
+    @property
+    def is_active(self):
+        return self.membership_end_date >= timezone.now().date() or self.membership_end_date is None
+
+class Librarian(models.Model):
+    reader = models.OneToOneField(Reader, on_delete=models.CASCADE)
+    start_date = models.DateField()
+    end_date = models.DateField(null=True, blank=True)
+
+    @property
+    def is_active(self):
+        return self.end_date >= timezone.now().date() or self.end_date is None
 
 class Author(models.Model):
     first_name = models.CharField(max_length=50)
@@ -57,6 +82,22 @@ class BookReservation(models.Model):
 # ------------------------------
 #            SIGNALS
 # ------------------------------
+
+@receiver(post_save, sender=User)
+def create_reader(sender, instance, created, **kwargs):
+
+    if created:
+        # Generating unique nine-digit number
+        card_number_exist = True
+        while card_number_exist:
+
+            new_card_number = ''
+            for i in range(9):
+                new_card_number += str(randrange(10))
+
+            card_number_exist = Reader.objects.filter(library_card_number=new_card_number).exists()
+        else:
+            Reader.objects.create(user=instance,library_card_number=new_card_number)
 
 @receiver(pre_save, sender=BookReservation)
 def notify_reader_book_is_available(sender, instance, **kwargs):

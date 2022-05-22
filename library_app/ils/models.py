@@ -98,21 +98,3 @@ def create_reader(sender, instance, created, **kwargs):
             card_number_exist = Reader.objects.filter(library_card_number=new_card_number).exists()
         else:
             Reader.objects.create(user=instance,library_card_number=new_card_number)
-
-@receiver(pre_save, sender=BookReservation)
-def notify_reader_book_is_available(sender, instance, **kwargs):
-
-    if instance.id is not None:
-        pre_instance = BookReservation.objects.get(id=instance.id)
-
-        # If reserved book is available
-        if pre_instance.book_available_at is None and instance.book_available_at is not None:
-
-            book = Book.objects.get(id=instance.book)
-            reader = Reader.objects.get(id=instance.reader)
-
-            subject = 'Your reserved book is available!'
-            message = f'Dear reader, the book {book.name} is now available at your library. Come visit us and pick it up :-)'
-            from_email = 'library.bot@yourlibrary.cz'
-            recipient_list = [reader.user.email]
-            send_mail(subject, message, from_email, recipient_list)

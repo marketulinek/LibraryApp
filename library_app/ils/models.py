@@ -1,9 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save,pre_save
 from django.dispatch import receiver
+from django.core.mail import send_mail
 from django.utils import timezone
 from random import randrange
+
 
 class Reader(models.Model):
 
@@ -18,6 +20,9 @@ class Reader(models.Model):
     @property
     def is_active(self):
         return self.membership_end_date >= timezone.now().date() or self.membership_end_date is None
+
+    def __str__(self):
+        return f"{self.user.first_name} {self.user.last_name} ({self.user.username})"
 
 class Librarian(models.Model):
     reader = models.OneToOneField(Reader, on_delete=models.CASCADE)
@@ -51,8 +56,35 @@ class Book(models.Model):
     def __str__(self):
         return f"[{self.id}] {self.name}  ({self.author.first_name} {self.author.last_name}) "
 
+class BookReservation(models.Model):
+    COMPLETED = 'Completed'
+    CANCELLED = 'Cancelled'
+    FORFEITED = 'Forfeited'
+    TERMINATION_CHOICES = (
+        (COMPLETED, 'Reservation completed'),
+        (CANCELLED, 'Reservation cancelled'),
+        (FORFEITED, 'Reservation forfeited')
+    )
+
+    reader = models.ForeignKey(Reader, on_delete=models.RESTRICT)
+    book = models.ForeignKey(Book, on_delete=models.RESTRICT)
+    created_at = models.DateTimeField(auto_now_add=True)
+    book_available_at = models.DateTimeField(null=True, blank=True)
+    termination_type = models.CharField(max_length=10, choices=TERMINATION_CHOICES, null=True, blank=True)
+
+    def __str__(self):
+        return f"[#{self.id}] {self.book.name} (reader: {self.reader.user.username})"
+
+    class Meta:
+        get_latest_by = "created_at"
+
 # TODO: Tag
 # TODO: Rating
+
+
+# ------------------------------
+#            SIGNALS
+# ------------------------------
 
 @receiver(post_save, sender=User)
 def create_reader(sender, instance, created, **kwargs):

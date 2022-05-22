@@ -21,6 +21,9 @@ class Reader(models.Model):
     def is_active(self):
         return self.membership_end_date >= timezone.now().date() or self.membership_end_date is None
 
+    def __str__(self):
+        return f"{self.user.first_name} {self.user.last_name} ({self.user.username})"
+
 class Librarian(models.Model):
     reader = models.OneToOneField(Reader, on_delete=models.CASCADE)
     start_date = models.DateField()
@@ -70,7 +73,7 @@ class BookReservation(models.Model):
     termination_type = models.CharField(max_length=10, choices=TERMINATION_CHOICES, null=True, blank=True)
 
     def __str__(self):
-        return f"[#{self.id}] {self.book.name} (reader: {self.reader.username})"
+        return f"[#{self.id}] {self.book.name} (reader: {self.reader.user.username})"
 
     class Meta:
         get_latest_by = "created_at"

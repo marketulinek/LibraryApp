@@ -36,3 +36,9 @@ class BookFormView(CreateView):
 
 class BookFormConfirmationView(TemplateView):
     template_name = 'book/book_form_confirmation.html'
+
+class LibraryRulesView(TemplateView):
+    template_name = 'for_readers/library_rules.html'
+
+class FAQView(TemplateView):
+    template_name = 'for_readers/faq.html'

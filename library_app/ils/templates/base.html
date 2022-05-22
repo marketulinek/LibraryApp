@@ -30,6 +30,15 @@
                   <li class="nav-item">
                     <a class="nav-link" href="{% url 'author_list' %}">Authors</a>
                   </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        For Users
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{% url 'library_rules' %}">Library Rules</a></li>
+                        <li><a class="dropdown-item" href="{% url 'faq' %}">FAQ</a></li>
+                    </ul>
+                  </li>
                   <li class="nav-item">
                     <a class="nav-link" href="#">My Account</a>
                   </li>

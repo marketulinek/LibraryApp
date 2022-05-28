@@ -1,7 +1,5 @@
 from django.urls import path
 from . import views
-from django.contrib.auth.views import LoginView
-from .forms import CustomLoginForm
 
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
@@ -19,5 +17,6 @@ urlpatterns = [
 
     # For Users
     path('readers/library_rules', views.LibraryRulesView.as_view(), name='library_rules'),
-    path('readers/faq', views.FAQView.as_view(), name='faq')
+    path('readers/faq', views.FAQView.as_view(), name='faq'),
+
 ]

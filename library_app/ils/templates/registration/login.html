@@ -1,10 +1,38 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% block content %}
-    <h2>Login</h2>
+<div class="container border my-5 px-5 pt-4" style="width: 350px; height: 500px">
+    <div class="text-center">
+      <h2>Log in</h2>
+    </div>
+    <div class="row align-items-center">
+        <div class="col-auto-center ms-3 me-1">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+            </form>
+            <div class="text-center">
+                <button class="btn btn-primary" type="button">Login</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+<style>
+.w-username,
+.w-password { width: 100%;
+}
+</style>
+
+<div class="container border my-5 px-5 pt-4" style="width: 350px; height: 500px">
+    <h2 class="mb-4 text-center" style="color: grey;">Log in</h2>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Log in </button>
+            {{ form.as_p }}
+        <div class="d-grid gap-2">
+            <button class="btn btn-primary" type="button">Login</button>
+        </div>
+            <div class="py-3 text-center">Don't have an account?<br><a href="#">Register here.</a></div>
     </form>
-    <button type="submit" class="btn btn-link">Not a member? Register here.</button>
-{% endblock %}
+</div>

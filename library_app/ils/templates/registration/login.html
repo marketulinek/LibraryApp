@@ -2,12 +2,12 @@
 {% block content %}
 <style>
     .container-registration{
-        background-color: white;
+        background-color: #FFFAF0;
         border: 3px solid #F09F90;
-        width: 350px;
-        height: 500px;
+        width: 380px;
+        height: 600px;
     }
-    input[name="username"], [name="password"]{
+    input[name="username"], [type="password"]{
         width: 100%;
     }
 </style>
@@ -18,8 +18,9 @@
         {% csrf_token %}
         <div class=" d-grid gap-2">
             {{form.as_p }}
-            <button type="submit" class="btn btn-primary">Login</button>
         </div>
+        <div class="text-end" style="font-size: small"><a href="{% url 'password_reset' %}">Forgot password?</a></div>
+        <div class="mt-4 text-center"><button type="submit" class="btn btn-primary" style="width: 100%" >Login</button></div>
         <div class="py-4 text-center">Don't have an account?<br><a href="#">Register here.</a></div>
     </form>
 </div>

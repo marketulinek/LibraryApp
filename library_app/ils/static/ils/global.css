@@ -28,3 +28,15 @@ a:hover { color: #d97877 !important; }
 /* ************* */
 .btn-salmon { background-color: #FFCFA6; }
 .btn-lilac { background-color: #DBC0C0; }
+
+/* ------------- */
+/*  BOOK DETAIL  */
+/* ------------- */
+.book-cover-placeholder {
+    margin: 0 auto; 
+    background-color: grey; 
+    width: 200px; 
+    height: 200px; 
+    color: gainsboro; 
+    padding-top: 50px;
+}

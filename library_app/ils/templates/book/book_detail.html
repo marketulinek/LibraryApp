@@ -1,14 +1,23 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2> {{ object.name }} </h2>
-    <h2> by {{ object.author.first_name }} {{ object.author.last_name }}</h2>
-
-
-    <h4> Publisher: {{object.publisher.name}} </h4>
-    <h4> Publication Year: {{object.year}} </h4>
-    <h4> Description: </h4>
-    <p> {{object.description}} </p>
-
-    <a href='{% url "book_list" %}'> back to list of books </a>
+    <br>
+    <div class="container shadow-lg p-3 mb-5 bg-body rounded">
+        <br>
+        <div class="row">
+            <div class="col-3 text-center">
+                <div class="rounded book-cover-placeholder"></div>
+            </div>
+            <div class="col">
+                <h2>{{ object.name }}</h2>
+                <h4>by <a href="{% url 'author_detail' object.author.id %}" class="text-reset">{{ object.author.first_name }} {{ object.author.last_name }}</a></h4>
+                <br>
+                <h6><span class="fw-bold">Publisher:</span> {{object.publisher.name}}</h6>
+                <h6><span class="fw-bold">Publication Year:</span> {{object.year}}</h6>
+                <br>
+                <h5 class="fw-bold">Description:</h5>
+                <p>{{object.description}}</p>
+            </div>
+        </div>
+    </div>
 {% endblock %}

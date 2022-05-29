@@ -41,9 +41,11 @@
                         <li><a class="dropdown-item" href="{% url 'faq' %}">FAQ</a></li>
                     </ul>
                   </li>
+                {% if user.is_authenticated %}
                   <li class="nav-item">
                     <a class="nav-link text-reset" href="#">My Account</a>
                   </li>
+                {% endif %}
                 </ul>
                 {% if user.is_authenticated %}
                     <a class="nav-link text-reset" href="{% url 'logout' %}">Log out</a>

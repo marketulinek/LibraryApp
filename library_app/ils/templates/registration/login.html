@@ -24,3 +24,63 @@
     </form>
 </div>
 {% endblock %}
+
+
+{% comment "Below is an attempt to build version with nav-tabs" %}
+{% extends "base.html" %}
+{% block content %}
+<style>
+    .container-registration{
+        background-color: white;
+        border: 3px solid #F09F90;
+        width: 350px;
+        height: 500px;
+    }
+    input[name="username"], [name="password"]{
+        width: 100%;
+    }
+</style>
+
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item" role="presentation">
+    <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login-tab-pane" type="button" role="tab" aria-controls="login-tab-pane" aria-selected="true">Login</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#register-tab-pane" type="button" role="tab" aria-controls="register-tab-pane" aria-selected="false">Register</button>
+  </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+
+    <div class="tab-pane fade show active" id="login-tab-pane" role="tabpanel" aria-labelledby="login-tab" tabindex="0">
+      <div class="container container-registration my-5 px-5 pt-4">
+            <h2 class="text-center mb-5">Log in</h2>
+            <form method="post">
+                {% csrf_token %}
+                <div class=" d-grid gap-2">
+                    {{form.as_p }}
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+                <div class="py-4 text-center">Don't have an account?<br><a href="#">Register here.</a></div>
+            </form>
+      </div>
+    </div>
+
+  <div class="tab-pane fade" id="register-tab-pane" role="tabpanel" aria-labelledby="register-tab" tabindex="0">
+        <div class="container container-registration my-5 px-5 pt-4">
+            <h2 class="text-center mb-5">Register</h2>
+            <form method="post">
+                {% csrf_token %}
+                <div class=" d-grid gap-2">
+                    {{form.as_p }}
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+                <div class="py-4 text-center">You have an account?<br><a href="#">Log in here.</a></div>
+            </form>
+        </div>
+  </div>
+
+</div>
+{% endblock %}
+{% endcomment %}
+
+

@@ -27,6 +27,7 @@ class BookListView(ListView):
 class BookDetailView(DetailView):
     template_name = 'book/book_detail.html'
     model = models.Book
+    context_object_name = 'book'
 
 class BookFormView(CreateView):
     model = models.Book

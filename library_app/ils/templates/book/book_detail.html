@@ -13,14 +13,14 @@
                 </div>
             </div>
             <div class="col">
-                <h2>{{ object.name }}</h2>
-                <h4>by <a href="{% url 'author_detail' object.author.id %}" class="text-reset">{{ object.author.first_name }} {{ object.author.last_name }}</a></h4>
+                <h2>{{ book.name }}</h2>
+                <h4>by <a href="{% url 'author_detail' book.author.id %}" class="text-reset">{{ book.author.first_name }} {{ book.author.last_name }}</a></h4>
                 <br>
-                <h6><span class="fw-bold">Publisher:</span> {{object.publisher.name}}</h6>
-                <h6><span class="fw-bold">Publication Year:</span> {{object.year}}</h6>
+                <h6><span class="fw-bold">Publisher:</span> {{ book.publisher.name }}</h6>
+                <h6><span class="fw-bold">Publication Year:</span> {{ book.year }}</h6>
                 <br>
                 <h5 class="fw-bold">Description:</h5>
-                <p>{{object.description}}</p>
+                <p>{{ book.description }}</p>
             </div>
         </div>
     </div>

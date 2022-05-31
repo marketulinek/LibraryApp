@@ -40,13 +40,31 @@
                         <li><a class="dropdown-item" href="{% url 'library_rules' %}">Library Rules</a></li>
                         <li><a class="dropdown-item" href="{% url 'faq' %}">FAQ</a></li>
                     </ul>
-                  </li>
+                </li>
+                {% if user.is_authenticated %}
                   <li class="nav-item">
                     <a class="nav-link text-reset" href="#">My Account</a>
                   </li>
+                {% endif %}
                 </ul>
-                <a class="nav-link text-reset" href="#">Log In or Register</a>
-                <form class="d-flex">
+
+               <ul class="navbar-nav mb-2 mb-lg-0">
+                {% if user.is_authenticated %}
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-reset" href="#" id="navbarDropdownAuth" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Logged in as {{ user.username|title }}
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownAuth">
+                        <li><a class="dropdown-item" href="{% url 'password_change' %}">Change Password</a></li>
+                        <li><a class="dropdown-item" href="{% url 'logout' %}" >Log out</a></li>
+                    </ul>
+                  </li>
+                {% else %}
+                    <li><a class="nav-link text-reset" href="{% url 'login' %}">Log In or Register</a></li>
+                {% endif %}
+              </ul>
+
+                  <form class="d-flex">
                     <input class="form-control me-2" type="search" placeholder="Search a book or author" aria-label="Search">
                     <button class="btn btn-outline-light" type="submit">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">

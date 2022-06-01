@@ -14,9 +14,41 @@
                     </svg>
                 </div>
 
+                <br>
+                <span class="fst-italic">Not available until<br>Thu 02 Jun 2022</span>
+    
                 <br><br>
-                <button type="button" class="btn btn-lilac">Make Reservation</button>
+    
+                <!-- Button trigger modal RESERVATION -->
+                <button type="button" class="btn btn-lilac" data-bs-toggle="modal" data-bs-target="#reservationModal">Make reservation</button>
+                
+                <br><br>
+                <button type="button" class="btn btn-lilac disabled">Already reserved</button>
             </div>
+
+            <!-- Modal RESERVATION -->
+            <div class="modal fade" id="reservationModal" tabindex="-1" aria-labelledby="reservationModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="reservationModalLabel">Book reservation</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-left">
+                        <strong>Title:</strong> {{ book.name }}<br>
+                        <strong>Author:</strong> {{ book.author.first_name }} {{ book.author.last_name }}<br><br>
+                        <p>After making reservation, you will be notify via e-mail when the book is available for you.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <form action="#" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-salmon">Reserve book</button>
+                        </form>
+                    </div>
+                </div>
+                </div>
+            </div>
+
             <div class="col">
                 <h2>{{ book.name }}</h2>
                 <h4>by <a href="{% url 'author_detail' book.author.id %}" class="text-reset">{{ book.author.first_name }} {{ book.author.last_name }}</a></h4>

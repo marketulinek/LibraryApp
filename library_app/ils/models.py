@@ -31,7 +31,7 @@ class Librarian(models.Model):
 
     @property
     def is_active(self):
-        return self.end_date >= timezone.now().date() or self.end_date is None
+        return self.end_date is None or self.end_date >= timezone.now().date()
 
 class Author(models.Model):
     first_name = models.CharField(max_length=50)

@@ -2,6 +2,7 @@ from django.urls import reverse_lazy
 from django.views.generic.base import TemplateView
 from django.views.generic import ListView, DetailView, CreateView
 from . import models
+from .forms import RegisterUserForm
 
 class IndexView(TemplateView):
     template_name = 'index.html'
@@ -43,3 +44,8 @@ class LibraryRulesView(TemplateView):
 
 class FAQView(TemplateView):
     template_name = 'for_readers/faq.html'
+
+class RegisterView(CreateView):
+    form_class = RegisterUserForm
+    success_url = reverse_lazy('login')
+    template_name = "registration/register.html"

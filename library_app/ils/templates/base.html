@@ -26,11 +26,14 @@
                   <li class="nav-item">
                     <a class="nav-link text-reset" href="#">Catalogue</a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="{% url 'book_list' %}">Books</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="{% url 'author_list' %}">Authors</a>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Temporarily
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="nav-link" href="{% url 'book_list' %}">Books</a>
+                      <a class="nav-link" href="{% url 'author_list' %}">Authors</a>
+                    </ul>
                   </li>
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle text-reset" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -45,6 +48,22 @@
                   <li class="nav-item">
                     <a class="nav-link text-reset" href="#">My Account</a>
                   </li>
+                  {% if user.reader.librarian.is_active %}
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle text-reset" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Librarian Actions
+                      </a>
+                      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item disabled" href="#">Book loans</a></li>
+                        <li><a class="dropdown-item disabled" href="#">Book reservations</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item disabled" href="#">Reader registration requests</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item disabled" href="#">Add publisher</a></li>
+                        <li><a class="dropdown-item" href="{% url 'author_create' %}">Add author</a></li>
+                      </ul>
+                    </li>
+                  {% endif %}
                 {% endif %}
                 </ul>
 

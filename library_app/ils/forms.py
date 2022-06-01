@@ -8,4 +8,6 @@ class RegisterUserForm(UserCreationForm):
     class Meta:
         model = User
         fields = ("username", "password1", "password2")
+
+        # TODO: Add crispy forms
         # fields = ("first_name", "last_name", "username", "password1", "password2")

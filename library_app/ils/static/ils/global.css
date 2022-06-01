@@ -13,6 +13,11 @@ a:hover { color: #d97877 !important; }
     border-bottom: 6px solid #F09F90;
     color: white;
 }
+/* Added as temporary solution for the original icon for hamburger menu not being visible */
+.navbar-toggler-icon {
+    background: #F09F90;
+    border-radius: 50%;
+ }
 
 /* ************** */
 /*   BREADCRUMB   */

@@ -40,7 +40,7 @@
                         <p>After making reservation, you will be notify via e-mail when the book is available for you.</p>
                     </div>
                     <div class="modal-footer">
-                        <form action="#" method="POST">
+                        <form action="{% url 'book_make_reservation' book.id %}" method="POST">
                             {% csrf_token %}
                             <button type="submit" class="btn btn-salmon">Reserve book</button>
                         </form>

@@ -50,10 +50,16 @@
                         {% endif %}
                     </div>
                     <div class="modal-footer">
-                        <form action="{% url 'book_make_reservation' book.id %}" method="POST">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-salmon">Reserve book</button>
-                        </form>
+                        {% if user.is_authenticated %}
+                            <form action="{% url 'book_make_reservation' book.id %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-salmon">Reserve book</button>
+                            </form>
+                        {% else %}
+                            <div class="alert alert-warning" role="alert">
+                            You are not signed. <a href="{% url 'login' %}" class="alert-link">Please, sign in</a>.
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
                 </div>

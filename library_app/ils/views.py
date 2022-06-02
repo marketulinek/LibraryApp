@@ -39,10 +39,10 @@ class BookDetailView(DetailView):
         num_of_reservations = models.BookReservation.objects.filter(book=self.kwargs['pk'], termination_type__isnull=True).count()
         context['reservation_queue'] = num_of_reservations
 
-        if num_of_reservations > 0:
-            context['user_already_reserved'] = models.BookReservation.objects.filter(reader=self.request.user.reader, book=self.kwargs['pk'], termination_type__isnull=True).exists()
-        else:
+        if num_of_reservations == 0:
             context['can_be_reserved_until'] = timezone.now() + timezone.timedelta(days=5)
+        elif self.request.user.is_authenticated:
+            context['user_already_reserved'] = models.BookReservation.objects.filter(reader=self.request.user.reader, book=self.kwargs['pk'], termination_type__isnull=True).exists()
 
         return context
 

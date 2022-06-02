@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 
+{% block breadcrumb %}
+    <li class="breadcrumb-item"><a href="#" class="text-reset">Catalogue</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Book: {{ book.name }}</li>
+{% endblock %}
+
 {% block content %}
     <br>
     <div class="container shadow-lg p-3 mb-5 bg-body rounded">

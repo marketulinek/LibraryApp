@@ -4,6 +4,7 @@ from django.views import View
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.contrib import messages
+from django.utils import timezone
 from . import models
 
 class IndexView(TemplateView):
@@ -31,6 +32,19 @@ class BookDetailView(DetailView):
     template_name = 'book/book_detail.html'
     model = models.Book
     context_object_name = 'book'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        num_of_reservations = models.BookReservation.objects.filter(book=self.kwargs['pk'], termination_type__isnull=True).count()
+        context['reservation_queue'] = num_of_reservations
+
+        if num_of_reservations > 0:
+            context['user_already_reserved'] = models.BookReservation.objects.filter(reader=self.request.user.reader, book=self.kwargs['pk'], termination_type__isnull=True).exists()
+        else:
+            context['can_be_reserved_until'] = timezone.now() + timezone.timedelta(days=5)
+
+        return context
 
 class BookFormView(CreateView):
     model = models.Book

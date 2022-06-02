@@ -14,16 +14,18 @@
                     </svg>
                 </div>
 
-                <br>
-                <span class="fst-italic">Not available until<br>Thu 02 Jun 2022</span>
+                {% if reservation_queue > 0 %}
+                    <br><span class="fst-italic">Reservation queue: <span class="fw-bold">{{ reservation_queue }}</span></span>
+                {% endif %}
     
-                <br><br>
-    
-                <!-- Button trigger modal RESERVATION -->
-                <button type="button" class="btn btn-lilac" data-bs-toggle="modal" data-bs-target="#reservationModal">Make reservation</button>
-                
-                <br><br>
-                <button type="button" class="btn btn-lilac disabled">Already reserved</button>
+                {% if user_already_reserved %}
+                    <br><br>
+                    <button type="button" class="btn btn-lilac disabled">You already reserved</button>
+                {% else %}
+                    <br><br>
+                    <!-- Button trigger modal RESERVATION -->
+                    <button type="button" class="btn btn-lilac" data-bs-toggle="modal" data-bs-target="#reservationModal">Make reservation</button>
+                {% endif %}
             </div>
 
             <!-- Modal RESERVATION -->
@@ -36,8 +38,16 @@
                     </div>
                     <div class="modal-body text-left">
                         <strong>Title:</strong> {{ book.name }}<br>
-                        <strong>Author:</strong> {{ book.author.first_name }} {{ book.author.last_name }}<br><br>
-                        <p>After making reservation, you will be notify via e-mail when the book is available for you.</p>
+                        <strong>Author:</strong> {{ book.author.first_name }} {{ book.author.last_name }}<br>
+
+                        {% if reservation_queue > 0 %}
+                            <span class="fw-bold">Reservation queue:</span> {{ reservation_queue }}
+                            <br><br>
+                            <p>You will be notify via e-mail when the book is available for you.</p>
+                        {% else %}
+                            <br>
+                            <p>This book can be reserved for you until <strong>{{ can_be_reserved_until|date:"D d M Y" }}</strong>.</p>
+                        {% endif %}
                     </div>
                     <div class="modal-footer">
                         <form action="{% url 'book_make_reservation' book.id %}" method="POST">

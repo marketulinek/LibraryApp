@@ -19,4 +19,7 @@ urlpatterns = [
     path('readers/library_rules', views.LibraryRulesView.as_view(), name='library_rules'),
     path('readers/faq', views.FAQView.as_view(), name='faq'),
 
+    # For Registration
+    path('register', views.RegisterView.as_view(), name='register')
+
 ]

@@ -14,6 +14,15 @@ a:hover { color: #d97877 !important; }
     color: white;
 }
 
+/* ************* */
+/*    FOOTER     */
+/* ************* */
+.footer {
+    background-color: #4F3D48;
+    border-top: 6px solid #F09F90;
+    color: white;
+}
+
 
 /* ************** */
 /*   BREADCRUMB   */

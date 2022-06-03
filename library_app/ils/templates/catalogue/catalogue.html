@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Library Catalogue</h2>
+
+<div class="row row-cols-1 row-cols-md-6 g-4">
+
+{% for item in object_list %}
+    <div class="col">
+        <div class="card h-70" >
+            <img src="https://freesvg.org/img/johnny-automatic-open-book.png" class="card-img-top" alt="book image">
+            <div class="card-body">
+                <h5 class="card-title">{{ item.name }}</h5>
+                <p class="card-text">{{ item.author.first_name }} {{ item.author.last_name }}</p>
+                <a href='{% url "book_detail" item.pk %}' class="btn btn-outline-secondary">Visit page</a>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+
+</div>
+
+{% endblock %}

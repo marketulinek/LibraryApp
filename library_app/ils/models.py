@@ -112,3 +112,14 @@ def create_reader(sender, instance, created, **kwargs):
             card_number_exist = Reader.objects.filter(library_card_number=new_card_number).exists()
         else:
             Reader.objects.create(user=instance,library_card_number=new_card_number)
+
+@receiver(pre_save, sender=BookReservation)
+def create_loan_from_reservation(sender, instance, **kwargs):
+
+    if instance.id is not None:
+        old_instance = BookReservation.objects.get(id=instance.id)
+
+        # If book reservation was completed
+        if old_instance.termination_type is None and instance.termination_type == 'Completed':
+
+            BookLoan.objects.create(reader=instance.reader, book=instance.book)

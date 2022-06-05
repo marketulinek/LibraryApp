@@ -67,6 +67,12 @@ class BookLoan(models.Model):
     def book_return_deadline(self):
         return self.created_at + timezone.timedelta(days=30)
 
+    def __str__(self):
+        return f"[#{self.id}] {self.book.name} (reader: {self.reader.user.username})"
+
+    class Meta:
+        get_latest_by = "created_at"
+
 class BookReservation(models.Model):
     COMPLETED = 'Completed'
     CANCELLED = 'Cancelled'

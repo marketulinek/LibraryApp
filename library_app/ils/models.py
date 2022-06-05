@@ -129,3 +129,19 @@ def create_loan_from_reservation(sender, instance, **kwargs):
         if old_instance.termination_type is None and instance.termination_type == 'Completed':
 
             BookLoan.objects.create(reader=instance.reader, book=instance.book)
+
+@receiver(pre_save, sender=BookLoan)
+def update_book_available_field_in_reservation(sender, instance, **kwargs):
+
+    if instance.id is not None:
+        old_instance = BookLoan.objects.get(id=instance.id)
+
+        # If book was returned
+        if old_instance.returned_at is None and instance.returned_at is not None:
+
+            # Get the oldest open reservation of the book
+            br = BookReservation.objects.filter(book=instance.book,termination_type__isnull=True).order_by('created_at').first()
+
+            if br:
+                br.book_available_at = instance.returned_at
+                br.save()

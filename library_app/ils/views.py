@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 from django.contrib import messages
 from django.utils import timezone
 from . import models
+from .forms import RegisterUserForm
 
 class IndexView(TemplateView):
     template_name = 'index.html'
@@ -55,11 +56,20 @@ class BookFormView(CreateView):
 class BookFormConfirmationView(TemplateView):
     template_name = 'book/book_form_confirmation.html'
 
+class CatalogueView(ListView):
+    template_name = 'catalogue/catalogue.html'
+    model = models.Book
+
 class LibraryRulesView(TemplateView):
     template_name = 'for_readers/library_rules.html'
 
 class FAQView(TemplateView):
     template_name = 'for_readers/faq.html'
+
+class RegisterView(CreateView):
+    form_class = RegisterUserForm
+    success_url = reverse_lazy('login')
+    template_name = "registration/register.html"
 
 
 # ------------------------------

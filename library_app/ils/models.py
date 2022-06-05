@@ -56,6 +56,17 @@ class Book(models.Model):
     def __str__(self):
         return f"[{self.id}] {self.name}  ({self.author.first_name} {self.author.last_name}) "
 
+class BookLoan(models.Model):
+
+    reader = models.ForeignKey(User, on_delete=models.RESTRICT)
+    book = models.ForeignKey(Book, on_delete=models.RESTRICT)
+    created_at = models.DateTimeField(auto_now_add=True)
+    returned_at = models.DateTimeField(null=True, blank=True)
+
+    @property
+    def book_return_deadline(self):
+        return self.created_at + timezone.timedelta(days=30)
+
 class BookReservation(models.Model):
     COMPLETED = 'Completed'
     CANCELLED = 'Cancelled'

@@ -58,7 +58,7 @@ class Book(models.Model):
 
 class BookLoan(models.Model):
 
-    reader = models.ForeignKey(User, on_delete=models.RESTRICT)
+    reader = models.ForeignKey(Reader, on_delete=models.RESTRICT)
     book = models.ForeignKey(Book, on_delete=models.RESTRICT)
     created_at = models.DateTimeField(auto_now_add=True)
     returned_at = models.DateTimeField(null=True, blank=True)

@@ -8,7 +8,7 @@
         <link rel="stylesheet" type="text/css" href="{% static 'ils/global.css' %}">
       </head>
     <body>
-        <nav class="navbar navbar-expand-md shadow p-3">
+        <nav class="navbar navbar-dark navbar-expand-md shadow p-3 sticky-top">
             <div class="container-fluid">
               <a class="navbar-brand text-reset" href="{% url 'index' %}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-book" viewBox="0 0 16 16">
@@ -24,17 +24,20 @@
                     <a class="nav-link text-reset" aria-current="page" href="#">About</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link text-reset" href="#">Catalogue</a>
+                    <a class="nav-link text-reset" href="{% url 'catalogue' %}">Catalogue</a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="{% url 'book_list' %}">Books</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="{% url 'author_list' %}">Authors</a>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Temporarily
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="nav-link" href="{% url 'book_list' %}">Books</a>
+                      <a class="nav-link" href="{% url 'author_list' %}">Authors</a>
+                    </ul>
                   </li>
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle text-reset" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        For Users
+                        For Readers
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="{% url 'library_rules' %}">Library Rules</a></li>
@@ -45,6 +48,22 @@
                   <li class="nav-item">
                     <a class="nav-link text-reset" href="#">My Account</a>
                   </li>
+                  {% if user.reader.librarian.is_active %}
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle text-reset" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Librarian Actions
+                      </a>
+                      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item disabled" href="#">Book loans</a></li>
+                        <li><a class="dropdown-item disabled" href="#">Book reservations</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item disabled" href="#">Reader registration requests</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item disabled" href="#">Add publisher</a></li>
+                        <li><a class="dropdown-item" href="{% url 'author_create' %}">Add author</a></li>
+                      </ul>
+                    </li>
+                  {% endif %}
                 {% endif %}
                 </ul>
 
@@ -83,6 +102,18 @@
               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
           {% endfor %}
+        {% endif %}
+
+        {% if request.resolver_match.url_name != 'index' %}
+          <br>
+          <nav aria-label="breadcrumb" class="nav-breadcrumb">
+            <div class="container">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'index' %}" class="text-reset">Home</a></li>
+                {% block breadcrumb %}{% endblock %}
+              </ol>
+            </div>
+          </nav>
         {% endif %}
 
         {% block content %}

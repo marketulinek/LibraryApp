@@ -14,6 +14,7 @@ a:hover { color: #d97877 !important; }
     color: white;
 }
 
+
 /* ************** */
 /*   BREADCRUMB   */
 /* ************** */
@@ -40,3 +41,20 @@ a:hover { color: #d97877 !important; }
     color: gainsboro; 
     padding-top: 50px;
 }
+
+/* --------------------- */
+/*  REGISTRATION FORMS   */
+/* --------------------- */
+
+.container-registration {
+    background-color: #FFFAF0;
+    border: 3px solid #F09F90;
+    width: 380px;
+    height: 600px;
+}
+input[name="username"], [type="password"], [type="text"] {
+    width: 100%;
+    }
+.helptext {
+    font-size: small;
+ }

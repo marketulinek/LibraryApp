@@ -70,12 +70,11 @@ class MakeReservationView(View):
 
     def post(self, request, *args, **kwargs):
 
+        pk_book = self.kwargs['pk']
+        chosen_book = models.Book.objects.get(pk=pk_book)
+        # Todo: if book is available (not exist open reservation for a book) -> fill in 'available_at'
+
         try:
-            pk_book = self.kwargs['pk']
-            chosen_book = models.Book.objects.get(pk=pk_book)
-
-            # Todo: if book is available (not exist open reservation for a book) -> fill in 'available_at'
-
             models.BookReservation(reader=request.user.reader, book=chosen_book).save()
             messages.success(request, 'Reservation was successfully created.')
 

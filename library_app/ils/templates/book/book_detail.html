@@ -1,5 +1,12 @@
 {% extends 'base.html' %}
 
+{% block title %}{{ book.name }}{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item"><a href="{% url 'catalogue' %}" class="text-reset">Catalogue</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Book: {{ book.name }}</li>
+{% endblock %}
+
 {% block content %}
     <br>
     <div class="container shadow-lg p-3 mb-5 bg-body rounded">
@@ -12,9 +19,57 @@
                     </svg>
                 </div>
 
-                <br><br>
-                <button type="button" class="btn btn-lilac">Make Reservation</button>
+                {% if reservation_queue > 0 %}
+                    <br><span class="fst-italic">Reservation queue: <span class="fw-bold">{{ reservation_queue }}</span></span>
+                {% endif %}
+    
+                {% if user_already_reserved %}
+                    <br><br>
+                    <button type="button" class="btn btn-lilac disabled">You already reserved<br>this book</button>
+                {% else %}
+                    <br><br>
+                    <!-- Button trigger modal RESERVATION -->
+                    <button type="button" class="btn btn-lilac" data-bs-toggle="modal" data-bs-target="#reservationModal">Make reservation</button>
+                {% endif %}
             </div>
+
+            <!-- Modal RESERVATION -->
+            <div class="modal fade" id="reservationModal" tabindex="-1" aria-labelledby="reservationModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="reservationModalLabel">Book reservation</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-left">
+                        <strong>Title:</strong> {{ book.name }}<br>
+                        <strong>Author:</strong> {{ book.author.first_name }} {{ book.author.last_name }}<br>
+
+                        {% if reservation_queue > 0 %}
+                            <span class="fw-bold">Reservation queue:</span> {{ reservation_queue }}
+                            <br><br>
+                            <p>You will be notify via e-mail when the book is available for you.</p>
+                        {% else %}
+                            <br>
+                            <p>This book can be reserved for you until <strong>{{ can_be_reserved_until|date:"D d M Y" }}</strong>.</p>
+                        {% endif %}
+                    </div>
+                    <div class="modal-footer">
+                        {% if user.is_authenticated %}
+                            <form action="{% url 'book_make_reservation' book.id %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-salmon">Reserve book</button>
+                            </form>
+                        {% else %}
+                            <div class="alert alert-warning" role="alert">
+                            You are not signed. <a href="{% url 'login' %}" class="alert-link">Please, sign in</a>.
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                </div>
+            </div>
+
             <div class="col">
                 <h2>{{ book.name }}</h2>
                 <h4>by <a href="{% url 'author_detail' book.author.id %}" class="text-reset">{{ book.author.first_name }} {{ book.author.last_name }}</a></h4>

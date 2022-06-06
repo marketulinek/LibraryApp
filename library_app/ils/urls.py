@@ -14,6 +14,13 @@ urlpatterns = [
     path('book/<int:pk>/', views.BookDetailView.as_view(), name='book_detail'),
     path('book/book_form', views.BookFormView.as_view(), name='book_form'),
     path('book/book_form_confirmation', views.BookFormConfirmationView.as_view(), name='book_form_confirmation'),
+    path('book/<int:pk>/reserve/', views.MakeReservationView.as_view(), name='book_make_reservation'),
+
+    # Catalogue
+    path('catalogue/', views.CatalogueView.as_view(), name='catalogue'),
+
+    # Catalogue
+    path('catalogue/', views.CatalogueView.as_view(), name='catalogue'),
 
     # For Users
     path('readers/library_rules', views.LibraryRulesView.as_view(), name='library_rules'),

@@ -31,7 +31,7 @@ class Librarian(models.Model):
 
     @property
     def is_active(self):
-        return self.end_date >= timezone.now().date() or self.end_date is None
+        return self.end_date is None or self.end_date >= timezone.now().date()
 
 class Author(models.Model):
     first_name = models.CharField(max_length=50)
@@ -55,6 +55,23 @@ class Book(models.Model):
 
     def __str__(self):
         return f"[{self.id}] {self.name}  ({self.author.first_name} {self.author.last_name}) "
+
+class BookLoan(models.Model):
+
+    reader = models.ForeignKey(Reader, on_delete=models.RESTRICT)
+    book = models.ForeignKey(Book, on_delete=models.RESTRICT)
+    created_at = models.DateTimeField(auto_now_add=True)
+    returned_at = models.DateTimeField(null=True, blank=True)
+
+    @property
+    def book_return_deadline(self):
+        return self.created_at + timezone.timedelta(days=30)
+
+    def __str__(self):
+        return f"[#{self.id}] {self.book.name} (reader: {self.reader.user.username})"
+
+    class Meta:
+        get_latest_by = "created_at"
 
 class BookReservation(models.Model):
     COMPLETED = 'Completed'
@@ -101,3 +118,30 @@ def create_reader(sender, instance, created, **kwargs):
             card_number_exist = Reader.objects.filter(library_card_number=new_card_number).exists()
         else:
             Reader.objects.create(user=instance,library_card_number=new_card_number)
+
+@receiver(pre_save, sender=BookReservation)
+def create_loan_from_reservation(sender, instance, **kwargs):
+
+    if instance.id is not None:
+        old_instance = BookReservation.objects.get(id=instance.id)
+
+        # If book reservation was completed
+        if old_instance.termination_type is None and instance.termination_type == 'Completed':
+
+            BookLoan.objects.create(reader=instance.reader, book=instance.book)
+
+@receiver(pre_save, sender=BookLoan)
+def update_book_available_field_in_reservation(sender, instance, **kwargs):
+
+    if instance.id is not None:
+        old_instance = BookLoan.objects.get(id=instance.id)
+
+        # If book was returned
+        if old_instance.returned_at is None and instance.returned_at is not None:
+
+            # Get the oldest open reservation of the book
+            br = BookReservation.objects.filter(book=instance.book,termination_type__isnull=True).order_by('created_at').first()
+
+            if br:
+                br.book_available_at = instance.returned_at
+                br.save()

@@ -14,6 +14,7 @@ SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG needs to be set to FALSE for CUSTOM ERROR PAGES to show #
+
 DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']

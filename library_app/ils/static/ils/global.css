@@ -1,7 +1,7 @@
 /* ************** */
 /* BASIC ELEMENTS */
 /* ************** */
-body { background-color: #FDEECA; }
+body { background-color: #FDEECA; height: 100%}
 a { color: #4F3D48; }
 a:hover { color: #d97877 !important; }
 
@@ -137,4 +137,3 @@ navbar-toggler span {
     margin-top: 20px;
     transform: rotate(0deg);
 }
-

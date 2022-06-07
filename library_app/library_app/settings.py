@@ -19,13 +19,14 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'ils.apps.IlsConfig',
-    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "crispy_forms",
+    "crispy_bootstrap5",
 ]
 
 MIDDLEWARE = [
@@ -130,3 +131,10 @@ MESSAGE_TAGS = {
     messages.WARNING: 'alert-warning',
     messages.ERROR: 'alert-danger',
 }
+
+# Crispy forms Bootstrap 5
+# https://github.com/django-crispy-forms/crispy-bootstrap5
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"

@@ -7,6 +7,8 @@ from django.contrib import messages
 from django.utils import timezone
 from . import models
 from .forms import RegisterUserForm
+from django.shortcuts import render
+
 
 class IndexView(TemplateView):
     template_name = 'index.html'
@@ -92,3 +94,20 @@ class MakeReservationView(View):
             messages.error(request, 'Permission denied. You are not a reader.')
 
         return HttpResponseRedirect(reverse_lazy('book_detail', kwargs={'pk': pk_book}))
+
+
+# ------------------------------
+#       CUSTOM ERROR PAGE
+# ------------------------------
+
+def custom_error_404(request, exception):
+    return render(request, 'errors/404.html', {})
+
+def custom_error_500(request):
+    return render(request, 'errors/500.html', {})
+
+def custom_error_403(request, exception):
+    return render(request, 'errors/403.html', {})
+
+def custom_error_400(request, exception):
+    return render(request, 'errors/400.html', {})

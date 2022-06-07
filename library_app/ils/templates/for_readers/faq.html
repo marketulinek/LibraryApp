@@ -1,143 +1,138 @@
 {% extends 'base.html' %}
 
+{% block title %}FAQ{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item active" aria-current="page">FAQ</li>
+{% endblock %}
+
 {% block content %}
-    <h2>Frequently asked questions</h2>
 
-<div class="accordion" id="accordionFAQ">
+    <div class="container mb-5 rounded">
+      <h2 class="text-center mb-4">Frequently Asked Questions</h2>
+      
+      <div class="accordion shadow-lg" id="accordionFAQ">
 
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="headingOne">
-      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-        <u>Why register with us?</u>
-      </button>
-    </h2>
-    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionFAQ">
-      <div class="accordion-body">
-        <strong>Registered patrons can:</strong>
-        <ul>
-        <li>Login to Wi-Fi</li>
-        <li>Download eBooks or eResources (from anywhere, not just in the library)</li>
-        <li>Borrow print books and journals</li>
-        <li>Use public computers (terminals) in the building</li>
-        <li>Use self-service print/copy/scan machines
-        </li>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button text-black" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              <u>Why join us?</u>
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionFAQ">
+            <div class="accordion-body">
+              <strong>Library members can:</strong>
+              <ul>
+                <li>Borrow print books</li>
+                <li>Login to Wi-Fi</li>
+                <li>Use public computers (terminals) in the building</li>
+                <li>Use self-service print/copy/scan machines</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingTwo">
+            <button class="accordion-button text-black collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              <u>Who can join us?</u>
+            </button>
+          </h2>
+          <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionFAQ">
+            <div class="accordion-body">
+              Anyone older than 15 years of age with a valid passport/ID.
+            </div>
+          </div>
+        </div>
+      
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingThree">
+            <button class="accordion-button text-black collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              <u>Why I need to remember my e-mail, password, and library card number?</u>
+            </button>
+          </h2>
+          <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionFAQ">
+            <div class="accordion-body">
+              <strong>Your e-mail and password are required to:</strong>
+              <ul>
+                <li>Login to Wi-Fi</li>
+                <li>Access your user account.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingFour">
+            <button class="accordion-button text-black collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+              <u>What are the library opening hours?</u>
+            </button>
+          </h2>
+          <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionFAQ">
+            <div class="accordion-body">
+              The opening hours are from 9am till 8pm everyday.
+            </div>
+          </div>
+        </div>
+      
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingSix">
+            <button class="accordion-button text-black collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+              <u>How do I log into my user account?</u>
+            </button>
+          </h2>
+          <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionFAQ">
+            <div class="accordion-body">
+              Login to your user account in the top right-hand corner of the website. Insert the username and password you selected when you registered.
+            </div>
+          </div>
+        </div>
+      
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingSeven">
+            <button class="accordion-button text-black collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+              <u>How can I search for a book?</u>
+            </button>
+          </h2>
+          <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#accordionFAQ">
+            <div class="accordion-body">
+              In the menu click on <em>Catalogue</em>.
+            </div>
+          </div>
+        </div>
+      
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingEight">
+            <button class="accordion-button text-black collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+              <u>Where and how can I borrow a book?</u>
+            </button>
+          </h2>
+          <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight" data-bs-parent="#accordionFAQ">
+            <div class="accordion-body">
+              You can borrow a book in the library or through this library online system.
+            </div>
+          </div>
+        </div>
+      
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingNine">
+            <button class="accordion-button text-black collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+              <u>Why can´t I check out a book?</u>
+            </button>
+          </h2>
+          <div id="collapseNine" class="accordion-collapse collapse" aria-labelledby="headingNine" data-bs-parent="#accordionFAQ">
+            <div class="accordion-body">
+              <strong>There may be several reasons. Ask our library staff for assistance:</strong>
+              <ul>
+                <li>The item is available only for study in the library. Usually these are popular items used by many readers.</li>
+                <li>Your registration is going to expire soon.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      
       </div>
-    </div>
-  </div>
 
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="headingTwo">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-        <u>Who can register?</u>
-      </button>
-    </h2>
-    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionFAQ">
-      <div class="accordion-body">
-        Anyone older than 15 years of age with a valid passport/ID.
-      </div>
     </div>
-  </div>
-
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="headingThree">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-        <u>Why I need to remember my username, password, and PIN code?</u>
-      </button>
-    </h2>
-    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionFAQ">
-      <div class="accordion-body">
-        <strong>Your username and password are required to:</strong>
-        <ul>
-          <li>Login to Wi-Fi</li>
-          <li>Access your user account.</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="headingFour">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-        <u>What are the library opening hours?</u>
-      </button>
-    </h2>
-    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionFAQ">
-      <div class="accordion-body">
-        The opening hours are from 9am till 8pm everyday.
-      </div>
-    </div>
-  </div>
-
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="headingFive">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-        <u>How/where do I charge my financial account?</u>
-      </button>
-    </h2>
-    <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionFAQ">
-      <div class="accordion-body">
-        Your financial account can be charged from home (via online payment or bank transfer) or at the Cash Desk on the ground floor (open only during Patron Services hours).
-      </div>
-    </div>
-  </div>
-
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="headingSix">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-        <u>How do I log into my user account?</u>
-      </button>
-    </h2>
-    <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionFAQ">
-      <div class="accordion-body">
-        Login to your user account in the top right-hand corner of the website. Insert the username and password you selected when you registered.
-      </div>
-    </div>
-  </div>
-
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="headingSeven">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-        <u>How can I find a book/eBook?</u>
-      </button>
-    </h2>
-    <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#accordionFAQ">
-      <div class="accordion-body">
-        Search using the catalog or ask our information professionals during Patron Services hours.
-      </div>
-    </div>
-  </div>
-
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="headingEight">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
-        <u>Where and how can I borrow a book?</u>
-      </button>
-    </h2>
-    <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight" data-bs-parent="#accordionFAQ">
-      <div class="accordion-body">
-        You can use the self-check machines or a counter with a Patron.
-      </div>
-    </div>
-  </div>
-
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="headingNine">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
-        <u>Why can´t I check out a book or a journal?</u>
-      </button>
-    </h2>
-    <div id="collapseNine" class="accordion-collapse collapse" aria-labelledby="headingNine" data-bs-parent="#accordionFAQ">
-      <div class="accordion-body">
-        <strong>There may be several reasons. Ask our library staff for assistance:</strong>
-        <ul>
-          <li>The item is available only for study in the library. Usually these are popular items used by many patrons.</li>
-          <li>You have an outstanding fee.</li>
-          <li>Your registration is going to expire soon.</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-</div>
 
 {% endblock %}

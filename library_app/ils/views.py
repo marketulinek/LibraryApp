@@ -73,6 +73,8 @@ class RegisterView(CreateView):
     success_url = reverse_lazy('login')
     template_name = "registration/register.html"
 
+class MyAccountView(TemplateView):
+    template_name = 'my_account/overview.html'
 
 # ------------------------------
 #         ACTION  VIEWS

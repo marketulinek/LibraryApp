@@ -39,7 +39,7 @@
                 </li>
                 {% if user.is_authenticated %}
                   <li class="nav-item">
-                    <a class="nav-link text-reset" href="#">My Account</a>
+                    <a class="nav-link text-reset" href="{% url 'my_account' %}">My Account</a>
                   </li>
                   {% if user.reader.librarian.is_active %}
                     <li class="nav-item dropdown">

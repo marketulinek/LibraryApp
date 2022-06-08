@@ -3,8 +3,78 @@
 {% block title %}My Account{% endblock %}
 
 {% block breadcrumb %}
-    <li class="breadcrumb-item active" aria-current="page">My Account</li>
+    <li class="breadcrumb-item active" aria-current="page">My Account Overview</li>
 {% endblock %}
 
 {% block content %}
+    <style>
+        .library-card {
+            background-color: rgba(79, 61, 72, 0.8);
+            width: 300px;
+        }
+        .library-card .card-title { color: #F09F90; }
+        .card { border: none; }
+        .card-header { background-color: #B09291; }
+        .card-header .nav-link:not(.active):hover {
+            color: #703F3E !important;
+            border-color: #B09291;
+        }
+    </style>
+
+    <div class="container">
+        <div class="card shadow mb-5 bg-body rounded">
+            <div class="card-header">
+              <ul class="nav nav-tabs card-header-tabs">
+                <li class="nav-item">
+                  <a class="nav-link text-reset active" aria-current="true" href="#">Overview</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-reset" href="#">Book Loans</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-reset" href="#">Reservations</a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="card-body">
+                <h2 class="mb-4 text-center">My Account Overview</h2>
+
+                <div class="row  row-cols-auto">
+                    <div class="col">
+                        <div class="card library-card">
+                            <div class="card-body">
+                              <h6 class="card-subtitle mb-2 text-white">Virtual Library Card</h6>
+                              <h5 class="card-title mb-3 fw-bold">First and Last Name</h5>
+                              <h6 class="card-subtitle fw-lighter text-white">Membership ends: <strong>XYZ</strong></h6>
+                              <p class="card-text mt-3">
+                                <input class="form-control form-control-sm text-center font-monospace" type="text" placeholder="1 2 3 4 5 6 7 8 9">
+                              </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row row-cols-2">
+                            <div class="col">
+                                <div class="card text-center" style="width: 18rem;">
+                                    <div class="card-body">
+                                      <h6 class="card-title">Borrowed books</h6>
+                                      <p class="card-text fs-1">5</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card text-center" style="width: 18rem;">
+                                    <div class="card-body">
+                                      <h6 class="card-title">Open Reservations</h6>
+                                      <p class="card-text fs-1">1</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

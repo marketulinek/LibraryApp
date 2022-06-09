@@ -19,14 +19,13 @@ urlpatterns = [
     # Catalogue
     path('catalogue/', views.CatalogueView.as_view(), name='catalogue'),
 
-    # Catalogue
-    path('catalogue/', views.CatalogueView.as_view(), name='catalogue'),
-
     # For Users
     path('readers/library_rules', views.LibraryRulesView.as_view(), name='library_rules'),
     path('readers/faq', views.FAQView.as_view(), name='faq'),
 
     # For Registration
-    path('register', views.RegisterView.as_view(), name='register')
+    path('register', views.RegisterView.as_view(), name='register'),
 
+    # My Account
+    path('my_account', views.MyAccountView.as_view(), name='my_account')
 ]

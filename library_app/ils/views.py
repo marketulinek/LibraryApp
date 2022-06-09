@@ -11,6 +11,7 @@ from django.db.models import Q          # for search box
 from django_tables2 import SingleTableView
 from . import models
 from .forms import RegisterUserForm
+import ils.tables as tables
 from django.shortcuts import render
 
 
@@ -99,6 +100,7 @@ class MyAccountView(LoginRequiredMixin, TemplateView):
 
 class OpenReservationListView(LoginRequiredMixin, SingleTableView):
     model = models.BookReservation
+    table_class = tables.OpenReservationTable
     template_name = 'book_reservation/open_reservation_list.html'
 
 # ------------------------------

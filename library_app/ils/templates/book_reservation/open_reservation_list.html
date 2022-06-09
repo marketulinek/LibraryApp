@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load render_table from django_tables2 %}
 
 {% block title %}Librarian actions - Reservations{% endblock %}
 
@@ -7,5 +8,5 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container shadow-lg p-3 mb-5 bg-body rounded"></div>
+    <div class="container shadow-lg p-3 mb-5 bg-body rounded">{% render_table table %}</div>
 {% endblock %}

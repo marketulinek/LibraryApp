@@ -20,10 +20,10 @@
                         <div class="card library-card">
                             <div class="card-body">
                               <h6 class="card-subtitle mb-2 text-white">Virtual Library Card</h6>
-                              <h5 class="card-title mb-3 fw-bold">First and Last Name</h5>
-                              <h6 class="card-subtitle fw-lighter text-white">Membership ends: <strong>XYZ</strong></h6>
+                              <h5 class="card-title mb-3 fw-bold">{{ library_card.full_name }}</h5>
+                              <h6 class="card-subtitle fw-lighter text-white">Membership ends: <strong>{{ library_card.membership_ends }}</strong></h6>
                               <p class="card-text mt-3">
-                                <input class="form-control form-control-sm text-center font-monospace" type="text" placeholder="1 2 3 4 5 6 7 8 9">
+                                <input class="form-control form-control-sm text-center font-monospace" type="text" placeholder="{{ library_card.card_number }}">
                               </p>
                             </div>
                         </div>
@@ -34,7 +34,7 @@
                                 <div class="card text-center" style="width: 18rem;">
                                     <div class="card-body">
                                       <h6 class="card-title">Borrowed books</h6>
-                                      <p class="card-text fs-1">5</p>
+                                      <p class="card-text fs-1">{{ num_of_loans }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -42,7 +42,7 @@
                                 <div class="card text-center" style="width: 18rem;">
                                     <div class="card-body">
                                       <h6 class="card-title">Open Reservations</h6>
-                                      <p class="card-text fs-1">1</p>
+                                      <p class="card-text fs-1">{{ num_of_reservations }}</p>
                                     </div>
                                 </div>
                             </div>

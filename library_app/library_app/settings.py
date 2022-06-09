@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "crispy_forms",
     "crispy_bootstrap5",
+    "django_tables2",
 ]
 
 MIDDLEWARE = [
@@ -140,3 +141,8 @@ MESSAGE_TAGS = {
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+# Django-tables2
+# https://django-tables2.readthedocs.io/en/latest/
+
+DJANGO_TABLES2_TEMPLATE = "django_tables2/bootstrap4.html"

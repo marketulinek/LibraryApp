@@ -5,8 +5,8 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.utils import timezone
-from django.shortcuts import render     # for search
-from django.db.models import Q          # for search
+from django.shortcuts import render     # for search box
+from django.db.models import Q          # for search box
 from . import models
 from .forms import RegisterUserForm
 
@@ -97,12 +97,16 @@ class MakeReservationView(View):
 
 
 
+
+# ------------------------------
+#         SEARCH BOX
+# ------------------------------
+
 class SearchResultsView(TemplateView):
     model = models.Book
     template_name = 'search_results.html'
 
-
-# This works well but should be packed in the class
+# This function works well but it should be later extended to a class
 def search_results(request):
     query = request.GET.get('query')
     results = models.Book.objects.filter( Q(name__icontains=query)|

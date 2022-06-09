@@ -1,10 +1,17 @@
 from django.contrib import admin
 import ils.models as models
 
+class BookReservationAdmin(admin.ModelAdmin):
+    fields = ['reader', 'book', 'book_available_at', 'termination_type', 'created_at']
+    readonly_fields = ['created_at']
+    list_display = ['reader', 'book', 'termination_type', 'created_at']
+    list_filter = [['termination_type', admin.EmptyFieldListFilter], 'termination_type']
+    search_fields = ['reader__user__last_name', 'book__name', 'book__author__first_name', 'book__author__last_name']
+
 admin.site.register(models.Author)
 admin.site.register(models.Book)
 admin.site.register(models.BookLoan)
-admin.site.register(models.BookReservation)
+admin.site.register(models.BookReservation, BookReservationAdmin)
 admin.site.register(models.Librarian)
 admin.site.register(models.Publisher)
 admin.site.register(models.Reader)

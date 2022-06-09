@@ -6,6 +6,8 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.utils import timezone
+from django.shortcuts import render     # for search box
+from django.db.models import Q          # for search box
 from . import models
 from .forms import RegisterUserForm
 from django.shortcuts import render
@@ -115,6 +117,24 @@ class MakeReservationView(View):
 
         return HttpResponseRedirect(reverse_lazy('book_detail', kwargs={'pk': pk_book}))
 
+
+# ------------------------------
+#         SEARCH BOX
+# ------------------------------
+
+class SearchResultsView(TemplateView):
+    model = models.Book
+    template_name = 'search_results.html'
+
+# This function works well but it should be later extended to a class
+def search_results(request):
+    query = request.GET.get('query')
+    results = models.Book.objects.filter( Q(name__icontains=query)|
+                                          Q(author__first_name__icontains=query)|
+                                          Q(author__last_name__icontains=query)
+                                          )
+    return render(request, 'search_results.html', {'query': query,
+                                                   'results': results})
 
 # ------------------------------
 #       CUSTOM ERROR PAGE

@@ -4,6 +4,10 @@ from . import views
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
 
+    # For Search results
+    # path('search/', views.SearchResultsView.as_view(), name='search_results'),
+    path('search/', views.search_results, name='search_results'),
+
     # Author
     path('author/', views.AuthorListView.as_view(), name='author_list'),
     path('author/<int:pk>/', views.AuthorDetailView.as_view(), name='author_detail'),

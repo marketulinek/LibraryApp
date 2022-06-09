@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+ <center>
+     {% if query %}
+        <h2>Result for your search: {{ query }}</h2>
+        {% if results %}
+            <ul style="list-style-type: None">
+            {% for item in results %}
+                <li>
+                    <a href="{% url 'book_detail' item.pk %}">
+                        {{ item.author.first_name}} {{ item.author.last_name}}: {{ item.name }}
+                    </a>
+                </li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <h4>No result found.</h4>
+        {% endif %}
+     {% else %}
+        <h2>What are you searching for? </h2>
+     {% endif %}
+ </center>
+{% endblock %}
+
+
+TODO: Show results in a table
+

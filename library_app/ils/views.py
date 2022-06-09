@@ -3,6 +3,7 @@ from django.views.generic import ListView, DetailView, CreateView
 from django.views import View
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.utils import timezone
 from . import models
@@ -73,7 +74,7 @@ class RegisterView(CreateView):
     success_url = reverse_lazy('login')
     template_name = "registration/register.html"
 
-class MyAccountView(TemplateView):
+class MyAccountView(LoginRequiredMixin, TemplateView):
     template_name = 'my_account/overview.html'
 
 # ------------------------------

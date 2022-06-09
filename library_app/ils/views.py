@@ -103,6 +103,9 @@ class OpenReservationListView(LoginRequiredMixin, SingleTableView):
     table_class = tables.OpenReservationTable
     template_name = 'book_reservation/open_reservation_list.html'
 
+    def get_table_data(self):
+        return models.BookReservation.objects.filter(termination_type__isnull=True).order_by('-book_available_at', 'created_at')
+
 # ------------------------------
 #         ACTION  VIEWS
 # ------------------------------

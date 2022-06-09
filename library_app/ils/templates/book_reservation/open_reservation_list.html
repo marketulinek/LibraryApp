@@ -8,5 +8,8 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container shadow-lg p-3 mb-5 bg-body rounded">{% render_table table %}</div>
+    <div class="container shadow-lg p-3 mb-5 bg-body rounded">
+        <h2>List of Open Reservations</h2>
+        {% render_table table %}
+    </div>
 {% endblock %}

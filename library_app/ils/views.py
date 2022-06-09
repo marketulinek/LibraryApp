@@ -8,6 +8,7 @@ from django.contrib import messages
 from django.utils import timezone
 from django.shortcuts import render     # for search box
 from django.db.models import Q          # for search box
+from django_tables2 import SingleTableView
 from . import models
 from .forms import RegisterUserForm
 from django.shortcuts import render
@@ -95,6 +96,10 @@ class MyAccountView(LoginRequiredMixin, TemplateView):
         context['num_of_reservations'] = num_of_reservations
 
         return context
+
+class OpenReservationListView(LoginRequiredMixin, SingleTableView):
+    model = models.BookReservation
+    template_name = 'book_reservation/open_reservation_list.html'
 
 # ------------------------------
 #         ACTION  VIEWS

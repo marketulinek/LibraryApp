@@ -31,5 +31,8 @@ urlpatterns = [
     path('register', views.RegisterView.as_view(), name='register'),
 
     # My Account
-    path('my_account', views.MyAccountView.as_view(), name='my_account')
+    path('my_account', views.MyAccountView.as_view(), name='my_account'),
+
+    # Librarian Actions
+    path('open_reservations', views.OpenReservationListView.as_view(), name='open_reservation_list')
 ]

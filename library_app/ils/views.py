@@ -3,12 +3,15 @@ from django.views.generic import ListView, DetailView, CreateView
 from django.views import View
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.utils import timezone
 from django.shortcuts import render     # for search box
 from django.db.models import Q          # for search box
 from . import models
 from .forms import RegisterUserForm
+from django.shortcuts import render
+
 
 class IndexView(TemplateView):
     template_name = 'index.html'
@@ -73,6 +76,25 @@ class RegisterView(CreateView):
     success_url = reverse_lazy('login')
     template_name = "registration/register.html"
 
+class MyAccountView(LoginRequiredMixin, TemplateView):
+    template_name = 'my_account/overview.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['library_card'] = {
+            'full_name': self.request.user.first_name + ' ' + self.request.user.last_name,
+            'membership_ends': self.request.user.reader.membership_end_date,
+            'card_number': ' '.join(self.request.user.reader.library_card_number)
+        }
+
+        num_of_loans = models.BookLoan.objects.filter(reader=self.request.user.reader, returned_at__isnull=True).count()
+        context['num_of_loans'] = num_of_loans
+
+        num_of_reservations = models.BookReservation.objects.filter(reader=self.request.user.reader, termination_type__isnull=True).count()
+        context['num_of_reservations'] = num_of_reservations
+
+        return context
 
 # ------------------------------
 #         ACTION  VIEWS
@@ -96,8 +118,6 @@ class MakeReservationView(View):
         return HttpResponseRedirect(reverse_lazy('book_detail', kwargs={'pk': pk_book}))
 
 
-
-
 # ------------------------------
 #         SEARCH BOX
 # ------------------------------
@@ -115,3 +135,19 @@ def search_results(request):
                                           )
     return render(request, 'search_results.html', {'query': query,
                                                    'results': results})
+
+# ------------------------------
+#       CUSTOM ERROR PAGE
+# ------------------------------
+
+def custom_error_404(request, exception):
+    return render(request, 'errors/404.html', {})
+
+def custom_error_500(request):
+    return render(request, 'errors/500.html', {})
+
+def custom_error_403(request, exception):
+    return render(request, 'errors/403.html', {})
+
+def custom_error_400(request, exception):
+    return render(request, 'errors/400.html', {})

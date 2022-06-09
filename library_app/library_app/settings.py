@@ -13,9 +13,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# DEBUG needs to be set to FALSE for CUSTOM ERROR PAGES to show #
+
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 INSTALLED_APPS = [
     'ils.apps.IlsConfig',
@@ -27,6 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "crispy_forms",
     "crispy_bootstrap5",
+    "django_tables2",
 ]
 
 MIDDLEWARE = [
@@ -138,3 +141,8 @@ MESSAGE_TAGS = {
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+# Django-tables2
+# https://django-tables2.readthedocs.io/en/latest/
+
+DJANGO_TABLES2_TEMPLATE = "django_tables2/bootstrap4.html"

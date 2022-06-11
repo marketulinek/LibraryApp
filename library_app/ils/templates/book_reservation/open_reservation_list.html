@@ -9,7 +9,11 @@
 
 {% block content %}
     <div class="container shadow-lg p-3 mb-5 bg-body rounded">
-        <h2>List of Open Reservations</h2>
+        <h2 class="mb-3">List of Open Reservations</h2>
         {% render_table table %}
+
+        {% if not OpenReservationTable_table.data.list %}
+            <p class="text-center fst-italic fs-5 text-muted mt-4">There are no open reservations</p>
+        {% endif %}
     </div>
 {% endblock %}

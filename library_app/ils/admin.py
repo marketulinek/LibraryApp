@@ -8,8 +8,14 @@ class BookReservationAdmin(admin.ModelAdmin):
     list_filter = [['termination_type', admin.EmptyFieldListFilter], 'termination_type']
     search_fields = ['reader__user__last_name', 'book__name', 'book__author__first_name', 'book__author__last_name']
 
+class BookAdmin(admin.ModelAdmin):
+    fields = ['name', 'author', 'publisher', 'year', 'status', 'description']
+    list_display = ['name', 'author', 'status', 'publisher']
+    list_filter = ['status']
+    search_fields = ['name', 'author__first_name', 'author__last_name', 'description']
+
 admin.site.register(models.Author)
-admin.site.register(models.Book)
+admin.site.register(models.Book, BookAdmin)
 admin.site.register(models.BookLoan)
 admin.site.register(models.BookReservation, BookReservationAdmin)
 admin.site.register(models.Librarian)

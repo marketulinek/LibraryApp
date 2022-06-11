@@ -127,6 +127,17 @@ class MakeReservationView(View):
 
         return HttpResponseRedirect(reverse_lazy('book_detail', kwargs={'pk': pk_book}))
 
+class CompleteBookReservationView(View):
+
+    def post(self, request, *args, **kwargs):
+
+        pk_reservation = self.kwargs['pk']
+        reservation = models.BookReservation.objects.get(pk=pk_reservation)
+        reservation.termination_type = 'Completed'
+        reservation.save()
+
+        messages.success(request, 'Reservation was successfully completed and the book loan created.')
+        return HttpResponseRedirect(reverse_lazy('open_reservation_list'))
 
 # ------------------------------
 #         SEARCH BOX

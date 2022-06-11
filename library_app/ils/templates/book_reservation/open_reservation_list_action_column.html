@@ -1,0 +1,28 @@
+{% if record.book_available_at %}
+    <button type="button" class="btn btn-sm btn-salmon" data-bs-toggle="modal" data-bs-target="#completeReservationModal-{{ record.id }}">Lend</button>
+
+    <!-- Modal COMPLETE THE RESERVATION -->
+    <div class="modal fade" id="completeReservationModal-{{ record.id }}" tabindex="-1" aria-labelledby="completeReservationModalLabel-{{ record.id }}" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="completeReservationModalLabel-{{ record.id }}">Lending the book to a reader</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-left">
+                <strong>Title:</strong> {{ record.book.name }}<br>
+                <strong>Author:</strong> {{ record.book.author.first_name }} {{ record.book.author.last_name }}<br>
+                <strong>Reader:</strong> {{ record.reader.user.first_name }} {{ record.reader.user.last_name }}<br>
+                <br>
+                Are you sure you want to complete this reservation? The book loan will be created.
+            </div>
+            <div class="modal-footer">
+                <form action="#" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-salmon">Lend the book</button>
+                </form>
+            </div>
+        </div>
+        </div>
+    </div>
+{% endif %}

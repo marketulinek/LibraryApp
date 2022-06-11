@@ -47,10 +47,22 @@ class Publisher(models.Model):
         return f"[{self.id}] {self.name}"
 
 class Book(models.Model):
+    AVAILABLE = 'Available'
+    RESERVED = 'Reserved'
+    BORROWED = 'Borrowed'
+    UNAVAILABLE = 'Unavailable'
+    STATUS_CHOICES = (
+        (AVAILABLE, 'Book Available'),
+        (RESERVED, 'Book Reserved'),
+        (BORROWED, 'Book Borrowed'),
+        (UNAVAILABLE, 'Book Unavailable')
+    )
+
     name = models.CharField(max_length=200)
     author = models.ForeignKey(Author, on_delete=models.RESTRICT)
     publisher = models.ForeignKey(Publisher, on_delete=models.RESTRICT)
     year = models.IntegerField()
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=AVAILABLE)
     description = models.TextField(null=True, blank=True)
 
     def __str__(self):

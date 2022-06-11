@@ -55,7 +55,7 @@ class BookDetailView(DetailView):
 class BookFormView(CreateView):
     model = models.Book
     template_name = 'book/book_form.html'
-    fields = ["name", "author", "publisher", "year", "description"]
+    fields = ["name", "author", "publisher", "year", "status", "description"]
     success_url = reverse_lazy('book_form_confirmation')
 
 class BookFormConfirmationView(TemplateView):

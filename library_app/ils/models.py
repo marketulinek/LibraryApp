@@ -46,6 +46,8 @@ class Publisher(models.Model):
     def __str__(self):
         return f"[{self.id}] {self.name}"
 
+import datetime
+
 class Book(models.Model):
     AVAILABLE = 'Available'
     RESERVED = 'Reserved'
@@ -61,15 +63,15 @@ class Book(models.Model):
     name = models.CharField(max_length=200)
     author = models.ForeignKey(Author, on_delete=models.RESTRICT)
     publisher = models.ForeignKey(Publisher, on_delete=models.RESTRICT)
-    year = models.IntegerField()
+    year = models.IntegerField(max_length=4, default=2000)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=AVAILABLE)
     description = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return f"[{self.id}] {self.name}  ({self.author.first_name} {self.author.last_name}) "
 
-class BookLoan(models.Model):
 
+class BookLoan(models.Model):
     reader = models.ForeignKey(Reader, on_delete=models.RESTRICT)
     book = models.ForeignKey(Book, on_delete=models.RESTRICT)
     created_at = models.DateTimeField(auto_now_add=True)

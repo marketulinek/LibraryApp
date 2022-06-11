@@ -9,8 +9,9 @@ from django.utils import timezone
 from django.shortcuts import render     # for search box
 from django.db.models import Q          # for search box
 from . import models
-from .forms import RegisterUserForm
+from .forms import RegisterUserForm, AuthorForm
 from django.shortcuts import render
+from django.contrib.messages.views import SuccessMessageMixin
 
 
 class IndexView(TemplateView):
@@ -24,11 +25,12 @@ class AuthorDetailView(DetailView):
     template_name = 'author/author_detail.html'
     model = models.Author
 
-class AuthorCreateView(CreateView):
+class AuthorCreateView(SuccessMessageMixin, CreateView):
     template_name = 'author/author_create.html'
     model = models.Author
-    fields = ['first_name', 'last_name']
     success_url = reverse_lazy('author_list')
+    success_message = "Author was created successfully."
+    form_class = AuthorForm
 
 class BookListView(ListView):
     template_name = 'book/book_list.html'
@@ -140,6 +142,7 @@ def search_results(request):
 #       CUSTOM ERROR PAGE
 # ------------------------------
 
+# should later be extended to a class
 def custom_error_404(request, exception):
     return render(request, 'errors/404.html', {})
 

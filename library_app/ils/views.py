@@ -25,7 +25,7 @@ class AuthorDetailView(DetailView):
     template_name = 'author/author_detail.html'
     model = models.Author
 
-class AuthorCreateView(SuccessMessageMixin, CreateView):
+class AuthorCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = 'author/author_create.html'
     model = models.Author
     success_url = reverse_lazy('author_list')

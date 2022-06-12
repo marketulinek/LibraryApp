@@ -66,7 +66,7 @@ class BookForm(ModelForm):
                 Div("name", css_class="col-md-6"),
                 Div("author", css_class="col-sm-6"),
                 Div("publisher", css_class="col-sm-6"),
-                Div("year", css_class="col-6 col-md-3", placeholder="2000"),
+                Div("year", css_class="col-6 col-md-3"),
                 Div("status", css_class="col-6 col-md-3"),
                 Div("description", css_class="col-12 col-md-8"),
                 css_class="row px-4"
@@ -76,4 +76,3 @@ class BookForm(ModelForm):
                 css_class="ps-4"
             )
         )
-

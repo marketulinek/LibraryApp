@@ -77,6 +77,7 @@ class RegisterView(CreateView):
     form_class = RegisterUserForm
     success_url = reverse_lazy('login')
     template_name = "registration/register.html"
+    form_class = RegisterUserForm
 
 class MyAccountView(LoginRequiredMixin, TemplateView):
     template_name = 'my_account/overview.html'

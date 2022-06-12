@@ -185,3 +185,11 @@ navbar-toggler span {
     color: #703F3E !important;
     border-color: #B09291;
 }
+
+/*---------------------- */
+/* My Account Book Loans */
+/* --------------------- */
+.cell-with-link {
+    font-weight: bold;
+    text-decoration-line: none;
+}

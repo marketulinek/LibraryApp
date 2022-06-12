@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.forms import CharField, ModelForm
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, ButtonHolder, Submit, Div
-from .models import Author, Book
+from .models import Author, Book, Publisher
 
 
 class RegisterUserForm(UserCreationForm):
@@ -72,6 +72,25 @@ class BookForm(ModelForm):
                 Div("status", css_class="col-6 col-md-3"),
                 Div("description", css_class="col-12 col-md-8"),
                 css_class="row px-4"
+            ),
+            ButtonHolder(
+                Submit('submit', 'Create', css_class='button'),
+                css_class="ps-4"
+            )
+        )
+
+class PublisherForm(ModelForm):
+    class Meta:
+        model = Publisher
+        fields = ['name']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Div(
+                Div("name", css_class="col"),
+                css_class="col-lg-3 px-4",
             ),
             ButtonHolder(
                 Submit('submit', 'Create', css_class='button'),

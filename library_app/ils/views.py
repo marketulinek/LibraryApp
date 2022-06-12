@@ -8,7 +8,7 @@ from django.contrib import messages
 from django.utils import timezone
 from django.db.models import Q          # for search box
 from . import models, tables
-from .forms import RegisterUserForm, AuthorForm, BookForm
+from .forms import RegisterUserForm, AuthorForm, BookForm, PublisherForm
 from django.shortcuts import render
 from django.contrib.messages.views import SuccessMessageMixin
 import ils.tables as tables
@@ -64,6 +64,13 @@ class BookFormView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
 class BookFormConfirmationView(TemplateView):
     template_name = 'book/book_form_confirmation.html'
+
+class PublisherCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    template_name = 'publisher/publisher_create.html'
+    model = models.Publisher
+    success_url = reverse_lazy('publisher_create')
+    success_message = "Publisher was created successfully."
+    form_class = PublisherForm
 
 class CatalogueView(ListView):
     template_name = 'catalogue/catalogue.html'

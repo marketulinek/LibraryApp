@@ -6,10 +6,9 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.utils import timezone
-from django.shortcuts import render     # for search box
 from django.db.models import Q          # for search box
 from . import models
-from .forms import RegisterUserForm, AuthorForm
+from .forms import RegisterUserForm, AuthorForm, BookForm
 from django.shortcuts import render
 from django.contrib.messages.views import SuccessMessageMixin
 
@@ -54,11 +53,12 @@ class BookDetailView(DetailView):
 
         return context
 
-class BookFormView(CreateView):
+class BookFormView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = models.Book
     template_name = 'book/book_form.html'
-    fields = ["name", "author", "publisher", "year", "status", "description"]
     success_url = reverse_lazy('book_form_confirmation')
+    success_message = "Book was created successfully."
+    form_class = BookForm
 
 class BookFormConfirmationView(TemplateView):
     template_name = 'book/book_form_confirmation.html'

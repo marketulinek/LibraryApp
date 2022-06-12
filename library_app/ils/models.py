@@ -5,11 +5,12 @@ from django.dispatch import receiver
 from django.core.mail import send_mail
 from django.utils import timezone
 from random import randrange
+from django.core.validators import RegexValidator
 
 
 class Reader(models.Model):
 
-    def get_one_year_from_today():
+    def get_one_year_from_today(self):
         return timezone.now() + timezone.timedelta(days=364)
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -53,6 +54,7 @@ class Book(models.Model):
     RESERVED = 'Reserved'
     BORROWED = 'Borrowed'
     UNAVAILABLE = 'Unavailable'
+
     STATUS_CHOICES = (
         (AVAILABLE, 'Book Available'),
         (RESERVED, 'Book Reserved'),
@@ -63,7 +65,7 @@ class Book(models.Model):
     name = models.CharField(max_length=200)
     author = models.ForeignKey(Author, on_delete=models.RESTRICT)
     publisher = models.ForeignKey(Publisher, on_delete=models.RESTRICT)
-    year = models.IntegerField(max_length=4, default=2000)
+    year = models.CharField(max_length=4, validators=[RegexValidator(r'^\d{4}$')], default=2000)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=AVAILABLE)
     description = models.TextField(null=True, blank=True)
 

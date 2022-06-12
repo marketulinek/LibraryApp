@@ -145,6 +145,18 @@ navbar-toggler span {
     transform: rotate(0deg);
 }
 
+/*--------------- */
+/*  Library Rules */
+/* -------------- */
+.library-rules-page { width: 350px; }
+.library-rules-page .title-letter {
+    font-weight: bold;
+    margin-right: 5px;
+    font-size: 30px;
+    font-style: italic;
+    font-family: "Courier New";
+}
+
 /*------- */
 /*  FAQ   */
 /* ------ */

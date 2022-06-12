@@ -7,10 +7,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.utils import timezone
 from django.db.models import Q          # for search box
-from . import models
+from . import models, tables
 from .forms import RegisterUserForm, AuthorForm, BookForm
 from django.shortcuts import render
 from django.contrib.messages.views import SuccessMessageMixin
+from django_tables2 import SingleTableView
 
 
 class IndexView(TemplateView):
@@ -97,6 +98,20 @@ class MyAccountView(LoginRequiredMixin, TemplateView):
         context['num_of_reservations'] = num_of_reservations
 
         return context
+
+class MyLoanView(LoginRequiredMixin, SingleTableView):
+    template_name = 'my_account/book_loans.html'
+    model = models.BookLoan
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        book_loan = models.BookLoan.objects.filter(reader=self.request.user.reader, returned_at__isnull=True)
+        context['book_loan'] = book_loan
+
+        return context
+
+    table_class = tables.MyBookLoanTable
 
 # ------------------------------
 #         ACTION  VIEWS

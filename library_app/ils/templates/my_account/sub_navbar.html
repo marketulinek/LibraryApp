@@ -1,10 +1,10 @@
 <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
-        <a class="nav-link text-reset{% if request.resolver_match.url_name == 'my_account' %} active{% endif %}" aria-current="true" href="#">Overview</a>
+        <a class="nav-link text-reset{% if request.resolver_match.url_name == 'my_account' %} active{% endif %}" aria-current="true" href="{% url 'my_account' %}">Overview</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-reset" href="#">Book Loans</a>
+        <a class="nav-link text-reset{% if request.resolver_match.url_name == 'account_book_loans' %} active{% endif %}" href="{% url 'account_book_loans' %}">Book Loans</a>
       </li>
       <li class="nav-item">
         <a class="nav-link text-reset" href="#">Reservations</a>

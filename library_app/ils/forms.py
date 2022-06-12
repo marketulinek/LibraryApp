@@ -11,7 +11,25 @@ class RegisterUserForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ("username", "password1", "password2")
+        fields = ("first_name", "last_name", "username", "password1", "password2")
+
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            self.helper = FormHelper()
+            self.helper.layout = Layout(
+                Div(
+                    Div("first_name", css_class="col-md-6"),
+                    Div("last_name", css_class="col-md-6"),
+                    Div("username", css_class="col-sm-6"),
+                    Div("password1", css_class="col-md-6"),
+                    Div("password1", css_class="col-md-6"),
+                    css_class="row px-4"
+                ),
+                ButtonHolder(
+                    Submit('submit', 'Submit', css_class='button'),
+                    css_class="btn btn-primary ps-4"
+                )
+            )
 
 
 class AuthorForm(ModelForm):

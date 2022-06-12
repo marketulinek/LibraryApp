@@ -49,7 +49,9 @@ class AuthorForm(ModelForm):
                 css_class="col-lg-3 px-4",
             ),
             ButtonHolder(
-                Submit('submit', 'Create', css_class='button ps-4')
+
+                Submit('submit', 'Create', css_class='button'),
+                css_class="ps-4"
             )
         )
 
@@ -72,6 +74,7 @@ class BookForm(ModelForm):
                 css_class="row px-4"
             ),
             ButtonHolder(
-                Submit('submit', 'Create', css_class='button ps-4')
+                Submit('submit', 'Create', css_class='button'),
+                css_class="ps-4"
             )
         )

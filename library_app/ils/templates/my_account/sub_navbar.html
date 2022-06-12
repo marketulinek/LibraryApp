@@ -7,7 +7,7 @@
         <a class="nav-link text-reset{% if request.resolver_match.url_name == 'account_book_loans' %} active{% endif %}" href="{% url 'account_book_loans' %}">Book Loans</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-reset" href="#">Reservations</a>
+        <a class="nav-link text-reset{% if request.resolver_match.url_name == 'account_reservations' %} active{% endif %}" href="{% url 'account_reservations' %}">Reservations</a>
       </li>
     </ul>
 </div>

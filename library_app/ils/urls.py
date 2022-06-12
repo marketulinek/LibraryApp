@@ -33,4 +33,5 @@ urlpatterns = [
     # My Account
     path('my_account', views.MyAccountView.as_view(), name='my_account'),
     path('my_account/book_loans', views.MyLoanView.as_view(), name='account_book_loans'),
+    path('my_account/reservations', views.MyReservationView.as_view(), name='account_reservations'),
 ]

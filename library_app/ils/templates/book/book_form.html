@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
-
+{% load crispy_forms_tags %}
 {% block content %}
-    <form method="post">{% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Odeslat">
+
+    <h2 class="crispy-h2">Insert new book</h2>
+    <form method="post">
+        {% csrf_token %}
+        {% crispy form %}
     </form>
+
 {% endblock %}

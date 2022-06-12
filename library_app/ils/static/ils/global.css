@@ -68,6 +68,13 @@ input[name="username"], [type="password"], [type="text"] {
     font-size: small;
  }
 
+/* --------------------------- */
+/*  FORMS USING DJANGO-CRISPY  */
+/* --------------------------- */
+.crispy-h2 {
+    margin-left: 25px;
+    color: #F09F90;
+}
 
 /* -------------------------- */
 /*  ANIMATED NAVBAR TOGGLER   */

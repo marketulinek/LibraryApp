@@ -14,9 +14,16 @@ class BookAdmin(admin.ModelAdmin):
     list_filter = ['status']
     search_fields = ['name', 'author__first_name', 'author__last_name', 'description']
 
+class BookLoanAdmin(admin.ModelAdmin):
+    fields = ['reader', 'book', 'created_at', 'returned_at']
+    readonly_fields = ['created_at']
+    list_display = ['reader', 'book', 'created_at', 'returned_at']
+    list_filter = ['reader', 'book__author']
+    search_fields = ['reader', 'book__name', 'book__author__first_name', 'book__author__last_name']
+
 admin.site.register(models.Author)
 admin.site.register(models.Book, BookAdmin)
-admin.site.register(models.BookLoan)
+admin.site.register(models.BookLoan, BookLoanAdmin)
 admin.site.register(models.BookReservation, BookReservationAdmin)
 admin.site.register(models.Librarian)
 admin.site.register(models.Publisher)

@@ -6,13 +6,13 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.utils import timezone
-from django.shortcuts import render     # for search box
 from django.db.models import Q          # for search box
-from django_tables2 import SingleTableView
-from . import models
-from .forms import RegisterUserForm
-import ils.tables as tables
+from . import models, tables
+from .forms import RegisterUserForm, AuthorForm, BookForm
 from django.shortcuts import render
+from django.contrib.messages.views import SuccessMessageMixin
+import ils.tables as tables
+from django_tables2 import SingleTableView
 
 
 class IndexView(TemplateView):
@@ -26,11 +26,12 @@ class AuthorDetailView(DetailView):
     template_name = 'author/author_detail.html'
     model = models.Author
 
-class AuthorCreateView(CreateView):
+class AuthorCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = 'author/author_create.html'
     model = models.Author
-    fields = ['first_name', 'last_name']
     success_url = reverse_lazy('author_list')
+    success_message = "Author was created successfully."
+    form_class = AuthorForm
 
 class BookListView(ListView):
     template_name = 'book/book_list.html'
@@ -54,11 +55,12 @@ class BookDetailView(DetailView):
 
         return context
 
-class BookFormView(CreateView):
+class BookFormView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = models.Book
     template_name = 'book/book_form.html'
-    fields = ["name", "author", "publisher", "year", "description"]
     success_url = reverse_lazy('book_form_confirmation')
+    success_message = "Book was created successfully."
+    form_class = BookForm
 
 class BookFormConfirmationView(TemplateView):
     template_name = 'book/book_form_confirmation.html'
@@ -74,9 +76,9 @@ class FAQView(TemplateView):
     template_name = 'for_readers/faq.html'
 
 class RegisterView(CreateView):
-    form_class = RegisterUserForm
-    success_url = reverse_lazy('login')
     template_name = "registration/register.html"
+    success_url = reverse_lazy('login')
+    form_class = RegisterUserForm
 
 class MyAccountView(LoginRequiredMixin, TemplateView):
     template_name = 'my_account/overview.html'
@@ -98,6 +100,34 @@ class MyAccountView(LoginRequiredMixin, TemplateView):
 
         return context
 
+class MyLoanView(LoginRequiredMixin, SingleTableView):
+    template_name = 'my_account/book_loans.html'
+    model = models.BookLoan
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        book_loan = models.BookLoan.objects.filter(reader=self.request.user.reader, returned_at__isnull=True)
+        context['book_loan'] = book_loan
+
+        return context
+
+    table_class = tables.MyBookLoanTable
+
+class MyReservationView(LoginRequiredMixin, SingleTableView):
+    template_name = 'my_account/reservations.html'
+    model = models.BookReservation
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        book_reservation = models.BookReservation.objects.filter(reader=self.request.user.reader, termination_type__isnull=True)
+        context['book_reservation'] = book_reservation
+
+        return context
+
+    table_class = tables.MyBookReservationTable
+
 class OpenReservationListView(LoginRequiredMixin, SingleTableView):
     model = models.BookReservation
     table_class = tables.OpenReservationTable
@@ -105,6 +135,7 @@ class OpenReservationListView(LoginRequiredMixin, SingleTableView):
 
     def get_table_data(self):
         return models.BookReservation.objects.filter(termination_type__isnull=True).order_by('-book_available_at', 'created_at')
+
 
 # ------------------------------
 #         ACTION  VIEWS
@@ -161,6 +192,7 @@ def search_results(request):
 #       CUSTOM ERROR PAGE
 # ------------------------------
 
+# should later be extended to a class
 def custom_error_404(request, exception):
     return render(request, 'errors/404.html', {})
 

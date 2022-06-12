@@ -5,6 +5,7 @@ from django.dispatch import receiver
 from django.core.mail import send_mail
 from django.utils import timezone
 from random import randrange
+from django.core.validators import RegexValidator
 
 
 class Reader(models.Model):
@@ -46,18 +47,33 @@ class Publisher(models.Model):
     def __str__(self):
         return f"[{self.id}] {self.name}"
 
+import datetime
+
 class Book(models.Model):
+    AVAILABLE = 'Available'
+    RESERVED = 'Reserved'
+    BORROWED = 'Borrowed'
+    UNAVAILABLE = 'Unavailable'
+
+    STATUS_CHOICES = (
+        (AVAILABLE, 'Book Available'),
+        (RESERVED, 'Book Reserved'),
+        (BORROWED, 'Book Borrowed'),
+        (UNAVAILABLE, 'Book Unavailable')
+    )
+
     name = models.CharField(max_length=200)
     author = models.ForeignKey(Author, on_delete=models.RESTRICT)
     publisher = models.ForeignKey(Publisher, on_delete=models.RESTRICT)
-    year = models.IntegerField()
+    year = models.CharField(max_length=4, validators=[RegexValidator(r'^\d{4}$')], default=2000)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=AVAILABLE)
     description = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return f"[{self.id}] {self.name}  ({self.author.first_name} {self.author.last_name}) "
 
-class BookLoan(models.Model):
 
+class BookLoan(models.Model):
     reader = models.ForeignKey(Reader, on_delete=models.RESTRICT)
     book = models.ForeignKey(Book, on_delete=models.RESTRICT)
     created_at = models.DateTimeField(auto_now_add=True)

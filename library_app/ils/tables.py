@@ -1,6 +1,23 @@
 import django_tables2 as tables
+from django_tables2.utils import A
+from ils.models import BookLoan
 from ils.models import BookReservation
 
+class MyBookLoanTable(tables.Table):
+    class Meta:
+        model = BookLoan
+        fields = ("book__name", "book__author", "created_at", "returned_at")
+
+    book__name = tables.LinkColumn("book_detail", args=[A("pk")],
+                                attrs={"a": {"class": "cell-with-link"}})
+
+class MyBookReservationTable(tables.Table):
+    class Meta:
+        model = BookReservation
+        fields = ("book__name", "book__author", "created_at", "book_available_at", "termination_type")
+
+    book__name = tables.LinkColumn("book_detail", args=[A("pk")],
+                                attrs={"a": {"class": "cell-with-link"}})
 
 class OpenReservationTable(tables.Table):
     id = tables.Column(verbose_name='#')

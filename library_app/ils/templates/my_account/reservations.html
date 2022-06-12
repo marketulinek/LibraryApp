@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load render_table from django_tables2 %}
+{% block title %}Reservations{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item active" aria-current="page">Reservations</li>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="card shadow mb-5 bg-body rounded">
+
+            {% include 'my_account/sub_navbar.html' %}
+
+            <div class="card-body" >
+                <h2 class="mb-4 text-center">Reservations</h2>
+
+                <div class="row  row-cols-auto">
+
+                    <div class="col-12" >
+                        {% render_table table %}
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

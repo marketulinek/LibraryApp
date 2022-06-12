@@ -10,7 +10,7 @@ from django.core.validators import RegexValidator
 
 class Reader(models.Model):
 
-    def get_one_year_from_today(self):
+    def get_one_year_from_today():
         return timezone.now() + timezone.timedelta(days=364)
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)

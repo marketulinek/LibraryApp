@@ -11,7 +11,8 @@ from . import models
 from .forms import RegisterUserForm, AuthorForm, BookForm
 from django.shortcuts import render
 from django.contrib.messages.views import SuccessMessageMixin
-
+import ils.tables as tables
+from django_tables2 import SingleTableView
 
 class IndexView(TemplateView):
     template_name = 'index.html'
@@ -97,6 +98,20 @@ class MyAccountView(LoginRequiredMixin, TemplateView):
         context['num_of_reservations'] = num_of_reservations
 
         return context
+
+class MyReservationView(LoginRequiredMixin, SingleTableView):
+    template_name = 'my_account/reservations.html'
+    model = models.BookReservation
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        book_reservation = models.BookReservation.objects.filter(reader=self.request.user.reader, termination_type__isnull=True)
+        context['book_reservation'] = book_reservation
+
+        return context
+
+    table_class = tables.MyBookReservationTable
 
 # ------------------------------
 #         ACTION  VIEWS

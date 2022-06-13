@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}New publisher{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item active" aria-current="page">New publisher</li>
+{% endblock %}
+
+{% block content %}
+    <div class="container p-3 mb-5">
+        <h2 class="crispy-h2">New publisher</h2>
+        <form method="post">
+            {% csrf_token %}
+            {% crispy form %}
+        </form>
+    </div>
+{% endblock %}

@@ -20,6 +20,9 @@ urlpatterns = [
     path('book/book_form_confirmation', views.BookFormConfirmationView.as_view(), name='book_form_confirmation'),
     path('book/<int:pk>/reserve/', views.MakeReservationView.as_view(), name='book_make_reservation'),
 
+    # Publisher
+    path('publisher/create/', views.PublisherCreateView.as_view(), name='publisher_create'),
+
     # Catalogue
     path('catalogue/', views.CatalogueView.as_view(), name='catalogue'),
 

@@ -40,5 +40,7 @@ urlpatterns = [
   
     # Librarian Actions
     path('open_reservations', views.OpenReservationListView.as_view(), name='open_reservation_list'),
-    path('open_reservations/<int:pk>/complete/', views.CompleteBookReservationView.as_view(), name='complete_open_reservation')
+    path('open_reservations/<int:pk>/complete/', views.CompleteBookReservationView.as_view(), name='complete_open_reservation'),
+    path('open_loans', views.OpenLoanListView.as_view(), name='open_loan_list'),
+    path('open_loans/<int:pk>/complete/', views.CompleteBookLoanView.as_view(), name='complete_open_loan'),
 ]

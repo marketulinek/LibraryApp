@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.views.generic.base import TemplateView
 from django.views.generic import ListView, DetailView, CreateView
 from django.views import View
@@ -143,6 +145,13 @@ class OpenReservationListView(LoginRequiredMixin, SingleTableView):
     def get_table_data(self):
         return models.BookReservation.objects.filter(termination_type__isnull=True).order_by('-book_available_at', 'created_at')
 
+class OpenLoanListView(LoginRequiredMixin, SingleTableView):
+    model = models.BookLoan
+    table_class = tables.OpenLoanTable
+    template_name = 'book_loan/open_loan_list.html'
+
+    def get_table_data(self):
+        return models.BookLoan.objects.filter(returned_at__isnull=True).order_by('created_at')
 
 # ------------------------------
 #         ACTION  VIEWS
@@ -176,6 +185,19 @@ class CompleteBookReservationView(View):
 
         messages.success(request, 'Reservation was successfully completed and the book loan created.')
         return HttpResponseRedirect(reverse_lazy('open_reservation_list'))
+
+class CompleteBookLoanView(View):
+
+    def post(self, request, *args, **kwargs):
+
+        pk_loan = self.kwargs['pk']
+        loan = models.BookLoan.objects.get(pk=pk_loan)
+        loan.returned_at = timezone.now()
+        loan.status_type = 'Completed'
+        loan.save()
+
+        messages.success(request, 'The book was successfully returned.')
+        return HttpResponseRedirect(reverse_lazy('open_loan_list'))
 
 # ------------------------------
 #         SEARCH BOX

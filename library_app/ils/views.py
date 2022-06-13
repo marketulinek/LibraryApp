@@ -110,30 +110,18 @@ class MyAccountView(LoginRequiredMixin, TemplateView):
 class MyLoanView(LoginRequiredMixin, SingleTableView):
     template_name = 'my_account/book_loans.html'
     model = models.BookLoan
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        book_loan = models.BookLoan.objects.filter(reader=self.request.user.reader, returned_at__isnull=True)
-        context['book_loan'] = book_loan
-
-        return context
-
     table_class = tables.MyBookLoanTable
+
+    def get_table_data(self):
+        return models.BookLoan.objects.filter(reader=self.request.user.reader).order_by('-created_at')
 
 class MyReservationView(LoginRequiredMixin, SingleTableView):
     template_name = 'my_account/reservations.html'
     model = models.BookReservation
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        book_reservation = models.BookReservation.objects.filter(reader=self.request.user.reader, termination_type__isnull=True)
-        context['book_reservation'] = book_reservation
-
-        return context
-
     table_class = tables.MyBookReservationTable
+
+    def get_table_data(self):
+        return models.BookReservation.objects.filter(reader=self.request.user.reader).order_by('-book_available_at','created_at')
 
 class OpenReservationListView(LoginRequiredMixin, SingleTableView):
     model = models.BookReservation

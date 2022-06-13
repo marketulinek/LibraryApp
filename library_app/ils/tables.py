@@ -4,6 +4,9 @@ from ils.models import BookLoan
 from ils.models import BookReservation
 
 class MyBookLoanTable(tables.Table):
+    created_at = tables.DateTimeColumn(format='D d M Y')
+    returned_at = tables.DateTimeColumn(format='D d M Y')
+
     class Meta:
         model = BookLoan
         fields = ("book__name", "book__author", "created_at", "returned_at")
@@ -12,6 +15,9 @@ class MyBookLoanTable(tables.Table):
                                 attrs={"a": {"class": "cell-with-link"}})
 
 class MyBookReservationTable(tables.Table):
+    created_at = tables.DateTimeColumn(format='D d M Y')
+    book_available_at = tables.DateTimeColumn(format='D d M Y')
+
     class Meta:
         model = BookReservation
         fields = ("book__name", "book__author", "created_at", "book_available_at", "termination_type")

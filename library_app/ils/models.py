@@ -74,10 +74,18 @@ class Book(models.Model):
 
 
 class BookLoan(models.Model):
+    BORROWED = 'Borrowed'
+    COMPLETED = 'Completed'
+    STATUS_CHOICES = (
+        (BORROWED, 'Book borrowed'),
+        (COMPLETED, 'Book loan completed')
+    )
+
     reader = models.ForeignKey(Reader, on_delete=models.RESTRICT)
     book = models.ForeignKey(Book, on_delete=models.RESTRICT)
     created_at = models.DateTimeField(auto_now_add=True)
     returned_at = models.DateTimeField(null=True, blank=True)
+    status_type = models.CharField(max_length=10, choices=STATUS_CHOICES, null=True, blank=True)
 
     @property
     def book_return_deadline(self):

@@ -1,7 +1,6 @@
 # LibraryApp
 
-:mortar_board: Team project for Django semestral course.
-:hammer: We're still working on improving the app though the course is over.
+:mortar_board: Team project for Django semestral course. We're still working on improving the app though the course is over :hammer:
 
 > Online system for fictional library
 
@@ -33,6 +32,6 @@ python manage.py runserver
 
 ## Many Thanks To
 
-- Our lecturer @pesikj
+- Our lecturer [Jiří Pešík](https://github.com/pesikj)
 - Our coaches Aleš, Jakub and Ondřej
-- @czechitas organization
+- [Czechitas](https://www.czechitas.cz/) organization

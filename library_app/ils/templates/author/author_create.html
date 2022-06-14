@@ -1,5 +1,12 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+
+{% block title %}New author{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item active" aria-current="page">New author</li>
+{% endblock %}
+
 {% block content %}
     <h2 class="crispy-h2">New author</h2>
 
@@ -7,5 +14,4 @@
         {% csrf_token %}
         {% crispy form %}
     </form>
-
 {% endblock %}

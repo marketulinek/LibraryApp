@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 {% load render_table from django_tables2 %}
-{% block title %}Book Loans{% endblock %}
+
+{% block title %}My Book Loans{% endblock %}
 
 {% block breadcrumb %}
-    <li class="breadcrumb-item active" aria-current="page">Book Loans</li>
+    <li class="breadcrumb-item"><a href="{% url 'my_account' %}" class="text-reset">My Account</a></li>
+    <li class="breadcrumb-item active" aria-current="page">My Book Loans</li>
 {% endblock %}
 
 {% block content %}
@@ -13,7 +15,7 @@
             {% include 'my_account/sub_navbar.html' %}
 
             <div class="card-body" >
-                <h2 class="mb-4 text-center">Book Loans</h2>
+                <h2 class="mb-4 text-center">My Book Loans</h2>
 
                 <div class="row  row-cols-auto">
 

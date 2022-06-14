@@ -1,4 +1,13 @@
 {% extends "base.html" %}
+
+{% block title %}
+    Search Results: {% firstof query '' %}
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item active" aria-current="page">Search Results</li>
+{% endblock %}
+
 {% block content %}
  <center>
      {% if query == ' ' %}

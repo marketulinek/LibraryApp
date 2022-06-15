@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 
-{% block title %}My Account{% endblock %}
+{% block title %}My Account Overview{% endblock %}
 
 {% block breadcrumb %}
-    <li class="breadcrumb-item active" aria-current="page">My Account Overview</li>
+    <li class="breadcrumb-item"><a href="{% url 'my_account' %}" class="text-reset">My Account</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Overview</li>
 {% endblock %}
 
 {% block content %}

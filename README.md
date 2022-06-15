@@ -1,8 +1,8 @@
 # LibraryApp
 
-:mortar_board: Team project for Django semestral course - ongoing :hammer:
+:mortar_board: Team project for Django semestral course. We're still working on improving the app though the course is over :hammer:
 
-> System for fictional library
+> Online system for fictional library
 
 ## Getting Started
 :snake: Python 3.9 required
@@ -29,3 +29,9 @@ python manage.py runserver
 
 * [Django](https://www.djangoproject.com/) - Python web framework
 * [Bootstrap](https://getbootstrap.com/) - Front-end framework
+
+## Many Thanks To
+
+- Our lecturer [Jiří Pešík](https://github.com/pesikj)
+- Our coaches Aleš, Jakub and Ondřej
+- [Czechitas](https://www.czechitas.cz/) organization

@@ -169,3 +169,21 @@ def update_book_available_field_in_reservation(sender, instance, **kwargs):
             if br:
                 br.book_available_at = instance.returned_at
                 br.save()
+
+@receiver(pre_save, sender=BookReservation)
+def notify_reader_book_is_available(sender, instance, **kwargs):
+
+    if instance.id is not None:
+        pre_instance = BookReservation.objects.get(id=instance.id)
+
+        # If reserved book was returned to the library
+        if pre_instance.book_available_at is None and instance.book_available_at is not None:
+
+            book = Book.objects.get(id=instance.book.id)
+            reader = Reader.objects.get(id=instance.reader.id)
+
+            subject = 'Your reserved book is available!'
+            message = f'Dear reader, the book {book.name} is now available at your library. Come visit us and pick it up :-)'
+            from_email = 'bot@library.com'
+            recipient_list = [reader.user.email]
+            send_mail(subject, message, from_email, recipient_list)

@@ -151,10 +151,19 @@ class MakeReservationView(View):
 
         pk_book = self.kwargs['pk']
         chosen_book = models.Book.objects.get(pk=pk_book)
-        # Todo: if book is available (not exist open reservation for a book) -> fill in 'available_at'
+        
+        # Fill in 'available_at' with current date and time if the book is available
+        book_available_at = None
+        book_reserved = models.BookReservation.objects.filter(book=chosen_book, termination_type__isnull=True).exists()
+
+        if not book_reserved:
+            book_loaned = models.BookLoan.objects.filter(book=chosen_book, returned_at__isnull=True).exists()
+
+            if not book_loaned:
+                book_available_at = timezone.now()
 
         try:
-            models.BookReservation(reader=request.user.reader, book=chosen_book).save()
+            models.BookReservation(reader=request.user.reader, book=chosen_book, book_available_at=book_available_at).save()
             messages.success(request, 'Reservation was successfully created.')
 
         except models.Reader.DoesNotExist:

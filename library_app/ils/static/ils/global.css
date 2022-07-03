@@ -40,6 +40,14 @@ a:hover { color: #d97877 !important; }
 .btn-lilac { background-color: #DBC0C0; }
 
 /* ------------- */
+/*   CATALOGUE   */
+/* ------------- */
+.catalogue-book-cover {
+    width: 75%;
+    margin: 0 auto;
+}
+
+/* ------------- */
 /*  BOOK DETAIL  */
 /* ------------- */
 .book-cover-placeholder {

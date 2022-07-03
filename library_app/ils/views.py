@@ -77,6 +77,7 @@ class PublisherCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 class CatalogueView(ListView):
     template_name = 'catalogue/catalogue.html'
     model = models.Book
+    ordering = ['name']
 
 class LibraryRulesView(TemplateView):
     template_name = 'for_readers/library_rules.html'
@@ -151,7 +152,7 @@ class MakeReservationView(View):
 
         pk_book = self.kwargs['pk']
         chosen_book = models.Book.objects.get(pk=pk_book)
-        
+
         # Fill in 'available_at' with current date and time if the book is available
         book_available_at = None
         book_reserved = models.BookReservation.objects.filter(book=chosen_book, termination_type__isnull=True).exists()
